@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="ch">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+
+    <script src="managejs/jquery.min.js"></script>
+    <script src="managejs/bootstrap.min.js"></script>
+    <script>
+        $(function() {
+            $(".meun-item").click(function() {
+                $(".meun-item").removeClass("meun-item-active");
+                $(this).addClass("meun-item-active");
+                var itmeObj = $(".meun-item").find("img");
+                itmeObj.each(function() {
+                    var items = $(this).attr("src");
+                    items = items.replace("_grey.png", ".png");
+                    items = items.replace(".png", "_grey.png")
+                    $(this).attr("src", items);
+                });
+                var attrObj = $(this).find("img").attr("src");
+                ;
+                attrObj = attrObj.replace("_grey.png", ".png");
+                $(this).find("img").attr("src", attrObj);
+            });
+            $("#topAD").click(function() {
+                $("#topA").toggleClass(" glyphicon-triangle-right");
+                $("#topA").toggleClass(" glyphicon-triangle-bottom");
+            });
+            $("#topBD").click(function() {
+                $("#topB").toggleClass(" glyphicon-triangle-right");
+                $("#topB").toggleClass(" glyphicon-triangle-bottom");
+            });
+            $("#topCD").click(function() {
+                $("#topC").toggleClass(" glyphicon-triangle-right");
+                $("#topC").toggleClass(" glyphicon-triangle-bottom");
+            });
+            $(".toggle-btn").click(function() {
+                $("#leftMeun").toggleClass("show");
+                $("#rightContent").toggleClass("pd0px");
+            })
+        })
+    </script>
+    <!--[if lt IE 9]>
+    <script src="managejs/html5shiv.min.js"></script>
+    <script src="managejs/respond.min.js"></script>
+    <![endif]-->
+    <link href="managecss/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="managecss/common.css" />
+    <link rel="stylesheet" type="text/css" href="managecss/slide.css" />
+    <link rel="stylesheet" type="text/css" href="managecss/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="managecss/flat-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="managecss/jquery.nouislider.css">
+</head>
+
+<body>
+<div id="wrap">
+    <!-- 左侧菜单栏目块 -->
+    <div class="leftMeun" id="leftMeun">
+        <div id="logoDiv">
+            <p id="logoP" style="font-size: 21px"><img id="logo" alt="" src="images/logo.png"><span>管理员管理</span></p>
+        </div>
+        <div class="meun-title" style="font-size: 25px">功能菜单</div>
+        <div class="meun-item meun-item-active" href="#sour" aria-controls="sour" role="tab" data-toggle="tab" style="font-size: 20px"><img src="images/icon_house_grey.png">未认证房屋</div>
+
+    </div>
+    <!-- 右侧具体内容栏目 -->
+    <div id="rightContent">
+        <a class="toggle-btn" id="nimei">
+            <i class="glyphicon glyphicon-align-justify"></i>
+        </a>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <!-- 交易记录模块 -->
+            <div role="tabpanel" class="tab-pane active" id="sour">
+                <div class="check-div form-inline" align="right">
+                    <button class="btn btn-yellow btn-xs" data-toggle="modal" data-target="#addSource">退出登录</button>
+                </div>
+                <div class="data-div">
+                    <div class="row tableHeader"  style="font-size: 20px">
+                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                            业主名称
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                            办公室
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                            地址
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                            数量/类型
+                        </div>
+                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                            电话
+                        </div>
+                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                            邮箱
+                        </div>
+                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                            操作
+                        </div>
+                    </div>
+                    <div class="tablebody">
+                        <div id="collapseSystem" class="collapse in" aria-expanded="true">
+                            <!--用户管理折叠框-->
+                            <div id="collapseAccount" class="collapse in" aria-expanded="true" style="font-size: 13px">
+                                <!--未认证房屋数据填充位置-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--修改资源弹出窗口-->
+                <div class="modal fade" id="changeSource" role="dialog" aria-labelledby="gridSystemModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="gridSystemModalLabel">修改资源</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="container-fluid">
+                                    <form class="form-horizontal">
+                                        <div class="form-group ">
+                                            <label for="sName" class="col-xs-3 control-label">名称：</label>
+                                            <div class="col-xs-8 ">
+                                                <input type="email" class="form-control input-sm duiqi" id="sName" placeholder="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="sLink" class="col-xs-3 control-label">链接：</label>
+                                            <div class="col-xs-8 ">
+                                                <input type="" class="form-control input-sm duiqi" id="sLink" placeholder="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="sOrd" class="col-xs-3 control-label">排序：</label>
+                                            <div class="col-xs-8">
+                                                <input type="" class="form-control input-sm duiqi" id="sOrd" placeholder="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="sKnot" class="col-xs-3 control-label">父节点：</label>
+                                            <div class="col-xs-8">
+                                                <input type="" class="form-control input-sm duiqi" id="sKnot" placeholder="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInput1" class="col-xs-3 control-label">资源类型：</label>
+                                            <div class="col-xs-8">
+                                                <label class="control-label" for="anniu">
+                                                    <input type="radio" name="leixing" id="anniu">菜单</label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                <label class="control-label" for="meun">
+                                                    <input type="radio" name="leixing" id="meun"> 按钮</label>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-xs btn-white" data-dismiss="modal">取 消</button>
+                                <button type="button" class="btn btn-xs btn-green">保 存</button>
+                            </div>
+                        </div>
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+                <!-- /.modal -->
+                <!--弹出删除资源警告窗口-->
+                <div class="modal fade" id="deleteSource" role="dialog" aria-labelledby="gridSystemModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="gridSystemModalLabel">提示</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="container-fluid" style="font-size: 20px;text-align: center">
+                                    认证成功！
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-xs btn-white" data-dismiss="modal" onclick="HtmlRefresh()">确定</button>
+                            </div>
+                        </div>
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+                <!-- /.modal -->
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script src="managejs/jquery.nouislider.js"></script>
+<script>
+    $(document).ready(function() {
+        //请求未认证的房屋
+        $.ajax({
+            url: "/Administrator/getUnCheck",
+            dataType: 'json',
+            type: "post",
+            data: "",
+            async: false,
+            success: function (msg) {
+                if (msg.statuscode == 1){
+                    var houselist = eval(msg.list);
+                    var userlist = eval(msg.userList);
+                    $.each(houselist, function (num) {
+                        var value = "<div class=\"row\">\n" +
+                            "<div class=\"col-lg-1 col-md-1 col-sm-1 col-xs-1 levl3 \">\n" +
+                            ""+userlist[num].name+"</div>\n" +
+                            "<div class=\"col-lg-2 col-md-2 col-sm-2 col-xs-2  levl3\">\n" +
+                            "<span>"+houselist[num].empty+"</span>\n" +
+                            "</div>\n" +
+                            "<div class=\"col-lg-2 col-md-2 col-sm-2 col-xs-2\">\n" +
+                            ""+houselist[num].city+houselist[num].area+houselist[num].address+"</div>\n" +
+                            "<div class=\"col-lg-2 col-md-2 col-sm-2 col-xs-2\">\n" +
+                            ""+houselist[num].officenumber+houselist[num].officetype+"</div>\n" +
+                            "<div class=\"col-lg-1 col-md-1 col-sm-1 col-xs-1 levl3\">\n" +
+                            ""+userlist[num].phonenumber+"</div>\n" +
+                            "<div class=\"col-lg-1 col-md-1 col-sm-1 col-xs-1 levl3\">\n" +
+                            ""+userlist[num].empty+"</div>\n" +
+                            "<div class=\"col-lg-1 col-md-1 col-sm-1 col-xs-1\">\n" +
+                            "<button class=\"btn btn-success btn-xs\" data-toggle=\"modal\" data-target=\"#deleteSource\">认证通过</button>\n" +
+                            "<button class=\"btn btn-danger btn-xs\" data-toggle=\"modal\" onclick='GetDetails("+houselist[num].id+")'>查看</button>\n" +
+                            "</div></div>";
+                        $("#collapseAccount").append(value);
+                        value ="";
+                    })
+                } else{
+                    alert("不存在未认证的房屋！")
+                }
+            }
+        })
+    })
+
+    function HtmlRefresh(){
+        window.location.reload();
+    }
+
+    function GetDetails(id){
+        $.ajax({
+            url: "/house/houseID",
+            dataType: 'json',
+            type: "post",
+            data: {"id":id},
+            async: false,
+            success: function (msg) {
+                if (msg.status == 1){
+                    window.location.href="http://localhost:8080/details.html";
+                }else{
+                    alert("id传输有误！")
+                }
+            }
+        })
+    }
+</script>
+</body>
+
+</html>

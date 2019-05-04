@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="description" content=""/>
+    <meta name="format-detection" content="telephone=no" />
+    <meta name=""/>
+
+    <link rel="stylesheet" href="css/tasp.css" />
+    <link rel="stylesheet" href="css/sweetalert.css" />
+    <link href="css/orderconfirm.css" rel="stylesheet" />
+
+    <style>
+        #page{width:auto;}
+        #comm-header-inner,#content{width:950px;margin:auto;}
+        #logo{padding-top:26px;padding-bottom:12px;}
+        #header .wrap-box{margin-top:-67px;}
+        #logo .logo{position:relative;overflow:hidden;display:inline-block;width:140px;height:35px;font-size:35px;line-height:35px;color:#f40;}
+        #logo .logo .i{position:absolute;width:140px;height:35px;top:0;left:0;background:url(http://a.tbcdn.cn/tbsp/img/header/logo.png);}
+    </style>
+
+</head>
+<body data-spm="1">
+<div id="page">
+    <div id="content" class="grid-c">
+        <form id="J_Form" name="J_Form" method="post">
+            <div>
+                <h3 class="dib" style="font-size: 30px">确认订单信息</h3>
+                <table cellspacing="0" cellpadding="0" class="order-table" id="J_OrderTable" summary="统一下单订单信息区域">
+                    <thead>
+                    <tr>
+                        <th class="s-title" style="font-size: 20px">办公大楼名称<hr/></th>
+                        <th class="s-price" style="font-size: 20px">单价(￥)<hr/></th>
+                        <th class="s-amount" style="font-size: 20px">数量<hr/></th>
+                        <th class="s-amount" style="font-size: 20px">类型<hr/></th>
+                        <th class="s-title" style="font-size: 20px">预定时间<hr/></th>
+                        <th class="s-total" style="font-size: 20px">价格(￥)<hr/></th>
+                        <th class="s-total" style="font-size: 20px">定金(￥)<hr/></th>
+                    </tr>
+                    </thead>
+
+                    <tbody data-spm="3" class="J_Shop" id="tddata">
+                    <tr class="first"><td colspan="7"></td></tr>
+                    <!--信息填充处-->
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td colspan="7">
+                            <div class="order-go" data-spm="4">
+                                <div class="J_AddressConfirm address-confirm">
+                                    <div class="kd-popup pop-back" style="margin-bottom: 40px;">
+                                        <div class="box"  id="userData" >
+                                            <!--信息填充处-->
+                                        </div>
+                                        <!--<a href="" class="back J_MakePoint" >返回</a>-->
+                                        <a id="J_Go" class=" btn-go" title="点击此按钮，提交订单。" onclick="setOrderStatus()">提交订单<b class="dpl-button"></b></a>
+                                    </div>
+                                </div>
+
+
+                                <div class="J_confirmError confirm-error">
+                                    <div class="msg J_shopPointError" style="display: none;"><p class="error">积分点数必须为大于0的整数</p></div>
+                                </div>
+
+                            </div>
+                        </td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+<script src="js/jquery-1.8.2.min.js"></script>
+<script src="js/sweetalert-dev.js"></script>
+<script>
+    var businessID = "";
+    $(document).ready(function(){
+        var url = window.location.href;
+        //alert(url);
+        var urlSection = url.split("?");
+        var Section = urlSection[1].split("&");
+        var houseId = Section[0].split("=");
+        var Time = Section[1].split("=");
+        Time[1] = Time[1].replace("_"," ");
+        //alert(houseId[1]);
+        //alert(Time[1]);
+        $.ajax({
+            url: "/house/getHouseByAjaxId",
+            type: "post",
+            dataType : "json",
+            data: {"houseid":houseId[1],"nowTime":Time[1]},
+            async : false,
+            success:function(data){
+              if(data.status == 1){
+                    var house = eval(data.houseInformation);
+                    var business = eval(data.business);
+                    var user = eval(data.userCustomer);
+
+                    businessID = business.id;
+
+                    var value = "<tr class=\"item\" data-pointRate=\"0\">\n" +
+                        "       <td class=\"s-title\">\n" +
+                        "         <a href=\"#\" target=\"_blank\" style=\"font-size: 20px\">"+house.empty+"</span></a>\n" +
+                        "       </td>\n" +
+                        "       <td class=\"s-price\">\n" +
+                        "        <span class='price '>\n" +
+                        "          <em class=\"style-normal-small-black J_ItemPrice\" style=\"font-size: 20px\">"+house.price+"</em>\n" +
+                        "        </span>\n" +
+                        "       </td>\n" +
+                        "       <td class=\"s-amount\">\n" +
+                        "        <div style=\"font-size: 20px\">"+business.number+"</div> \n" +
+                        "       </td>\n" +
+                        "       <td class=\"s-agio\">\n" +
+                        "           <div class=\"J_Promotion promotion\" data-point-url=\"\" style=\"font-size: 20px\">"+business.type+"</div>\n" +
+                        "       </td>\n" +
+                        "       <td class=\"s-total\"> \n" +
+                        "         <span class='price '>\n" +
+                        "           <em class=\"style-normal-bold-red J_ItemTotal \" style=\"font-size: 20px\">"+business.date+"</em>\n" +
+                        "         </span>\n" +
+                        "       </td>\n" +
+                        "       <td class=\"s-agio\">\n" +
+                        "           <div class=\"J_Promotion promotion\" data-point-url=\"\" style=\"font-size: 20px\">"+house.price*business.number+"</div>\n" +
+                        "       </td>\n" +
+                        "       <td class=\"s-agio\">\n" +
+                        "           <div class=\"J_Promotion promotion\" data-point-url=\"\" style=\"font-size: 20px\">"+house.prepayment*business.number+"</div>\n" +
+                        "       </td>\n" +
+                        "    </tr>\n" +
+                        "    \n" +
+                        "    <tr class=\"shop-total blue-line\">\n" +
+                        "     <td colspan=\"7\" style=\"font-size:20px\">合计：\n" +
+                        "       <span class='price g_price '>\n" +
+                        "        <span>&yen;</span><em class=\"style-middle-bold-red J_ShopTotal\" style=\"font-size:20px\" >"+house.prepayment*business.number+"</em>\n" +
+                        "      </span>\n" +
+                        "       </td>\n" +
+                        "    </tr>";
+
+                    $("#tddata").append(value);
+
+                    var userValue = "<div class=\"bd\" style='text-align:left'>\n" +
+                        "        <div class=\"point-in\" style='text-align:left'>    \n" +
+                        "          <em  style=\"font-size: 20px\">实付款：</em></span><em   id=\"J_ActualFee\" style=\"font-size:20px\" >630.00</em>\n" +
+                        "          </span>\n" +
+                        /*"        </div>\n" +*/
+                        "          <ul style='text-align:left'>\n" +
+                        "            <li style=\"font-size:20px\"><em>姓名：</em><span id=\"J_AddrConfirm\" style=\"word-break: break-all;\">\n" +
+                        "            "+user.name+"\n" +
+                        "             </span></li>\n" +
+                        "            <li style=\"font-size:20px\"><em>电话：</em><span id=\"J_AddrNameConfirm\" >"+user.phonenumber+"</span></li>\n" +
+                        "            <li style=\"font-size:20px\"><em>邮箱：</em><span id=\"J_AddrNameConfirm\" >"+user.idcard+"</span></li>\n" +
+                        "         </ul>\n" +
+                        "        </div>\n" +
+                        "        </div>";
+                  $("#userData").append(userValue);
+                }
+
+            }
+        })
+    })
+
+    function setOrderStatus(){
+        $.ajax({
+            url: "/Business/SetBusinessStatus",
+            type: "post",
+            dataType: "json",
+            data: {"businessid":businessID},
+            async: false,
+            success: function (data) {
+                if (data.status == 1){
+                    swal({
+                            title: "",
+                            text: "支付成功！跳转首页！",
+                            imageUrl: "images/123.jpg",
+                            closeOnConfirm: false,
+                            showLoaderOnConfirm: true,
+                        },
+                        function(){
+                            setTimeout(function(){
+                                window.location.href="index.html";
+                            }, 2000)
+                        });
+                }
+            }
+        })
+    }
+
+
+</script>
+</html>

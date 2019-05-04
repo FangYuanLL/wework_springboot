@@ -1,0 +1,285 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>管理员注册</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="css/login.css" rel="stylesheet" rev="stylesheet" type="text/css" media="all" />
+    <script type="text/javascript" src="js/jQuery1.7.js"></script>
+    <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="js/jquery1.42.min.js"></script>
+    <script type="text/javascript" src="js/jquery.SuperSlide.js"></script>
+    <script type="text/javascript" src="js/Validform_v5.3.2_min.js"></script>
+</head>
+<body>
+<div id="tab">
+    <ul class="tab_menu">
+        <li class="selected" style="width: 49%">用户注册</li>
+        <li style="width: 50%">管理员注册</li>
+    </ul>
+    <div class="tab_box">
+        <!-- 用户登录注册 -->
+        <div>
+            <div class="stu_error_box"></div>
+            <form id="userRegister" >
+                <div>
+                    <label>账&nbsp;&nbsp;&nbsp;号：</label>
+                    <input type="text" id="accountUser" name="account" onblur="AccountCheck(this.value)" />
+                    <span id="accountcheck" name="accountcheck" style="color:red;display: none">*</span>
+                </div>
+                <div>
+                    <label>密&nbsp;&nbsp;&nbsp;码：</label>
+                    <input type="password" id="passwordUser" name="password" onblur="PasswordCheck(this.value)"/>
+                    <span id="passwordcheck" name="passwordcheck" style="color:red;display: none">*</span>
+                </div>
+                <div>
+                    <label>确认密码：</label>
+                    <input type="password" id="repasswordUser" name="repassword" onblur="RePasswordCheck(this.value)"/>
+                    <span id="repasswordcheck" name="repasswordcheck" style="color:red;display: none">重复密码有误！</span>
+                </div>
+                <div>
+                    <label>姓&nbsp;&nbsp;&nbsp;名：</label>
+                    <input type="text" id="nameUser" name="name" style="display: inline" onblur="NameCheck(this.value)" >
+                    <span id="namecheck" name="namecheck" style="color:red;display: none">*</span>
+                </div>
+                <div>
+                    <label>电&nbsp;&nbsp;&nbsp;话：</label>
+                    <input type="text" id="phoneUser" name="phonenumber"  onblur="PhoneCheck(this.value)"/>
+                    <span id="phonecheck" name="phonecheck" style="color:red;display: none">*</span>
+                </div>
+                <div>
+                    <label>邮&nbsp;&nbsp;&nbsp;箱：</label>
+                    <input type="text" id="emailUser" name="email" onblur="EmailCheck(this.value)"/>
+                    <span id="emailcheck" name="emailcheck" style="color:red;display: none">*</span>
+                </div>
+                <div id="errorMsg" name="errorMsg" style="font-size: 24px"></div>
+                <div>
+                    <input type="button" style="width:100%;height: 45px;font-size: 24px;	background:#ef4300;" onclick="userRegister()" value="注册">
+                </div>
+            </form>
+        </div>
+        <!-- 用户登录注册-->
+        <!-- 管理员登录注册-->
+        <div class="hide">
+            <div class="tea_error_box"></div>
+            <form id="landlordRegister">
+                <div id="username">
+                    <label>账&nbsp;&nbsp;&nbsp;号：</label>
+                    <input type="text" id="accountLandlord" name="account"  onblur="accountLandlord(this.value)"/>
+                    <span id="accountLandcheck" name="accountLandcheck" style="color:red;display: none">*</span>
+                </div>
+                <div id="password">
+                    <label>密&nbsp;&nbsp;&nbsp;码：</label>
+                    <input type="password" id="passwordLandlord" name="password" onblur="passwordLandlord(this.value)" />
+                    <span id="passwordLandcheck" name="accountLandcheck" style="color:red;display: none">*</span>
+                </div>
+                <div id="errorMsgL" name="errorMsgL" style="font-size: 24px"></div>
+                <div>
+                    <input type="button" style="width:100%;height: 45px;font-size: 24px;	background:#ef4300;" onclick="landlordRegister()" value="注册">
+                </div>
+            </form>
+        </div>
+        <!-- 管理员登录注册-->
+
+    </div>
+</div>
+<div class="screenbg">
+    <ul>
+        <li><a href="javascript:;"><img src="images/register.jpg"></a></li>
+
+    </ul>
+</div>
+</body>
+<script type="text/javascript">
+    $(document).ready(function(){
+        var $tab_li = $('#tab ul li');
+        $tab_li.hover(function(){
+            $(this).addClass('selected').siblings().removeClass('selected');
+            var index = $tab_li.index(this);
+            $('div.tab_box > div').eq(index).show().siblings().hide();
+        });
+    });
+</script>
+<script type="text/javascript">
+    var check = new Array(6);
+
+    function AccountCheck(account){
+        if(account.length ==0){
+            document.getElementById("accountcheck").style.display="inline-block";
+            return 0;
+        }else {
+            document.getElementById("accountcheck").style.display="none";
+            return 1;
+        }
+    }
+    var repassword="";
+    function PasswordCheck(password){
+        if (password.length==0){
+            document.getElementById("passwordcheck").style.display="inline-block";
+            return 0;
+        } else{
+            document.getElementById("passwordcheck").style.display="none";
+            repassword = password;
+            return 1;
+        }
+    }
+
+    function RePasswordCheck(pass){
+        if (pass != repassword ){
+            document.getElementById("repasswordcheck").style.display="inline-block";
+            return 0;
+        } else{
+            document.getElementById("repasswordcheck").style.display="none";
+            return 1;
+        }
+    }
+
+    function NameCheck(name){
+        if (name.length == 0){
+            document.getElementById("namecheck").style.display="inline-block";
+            return 0;
+        } else{
+            document.getElementById("namecheck").style.display="none";
+            return 1;
+        }
+    }
+
+   function PhoneCheck(phone){
+        var reg =/^[1][0-9]{10}$/;
+        if(reg.test(phone) === false) {
+            document.getElementById("phonecheck").style.display="inline-block";
+            return 0;
+        }else {
+            document.getElementById("phonecheck").style.display="none";
+            return 1;
+        }
+    }
+    function EmailCheck(email){
+        var reg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+        if(reg.test(email) === false) {
+            document.getElementById("emailcheck").style.display="inline-block";
+            return 0;
+        }else {
+            document.getElementById("emailcheck").style.display="none";
+            return 1;
+        }
+    }
+
+    function accountLandlord(account){
+        if(account.length ==0){
+            document.getElementById("accountLandcheck").style.display="inline-block";
+            return 0;
+        }else {
+            document.getElementById("accountLandcheck").style.display="none";
+            return 1;
+        }
+    }
+
+    function passwordLandlord(password) {
+        if (password.length==0){
+            document.getElementById("passwordLandcheck").style.display="inline-block";
+            return 0;
+        } else{
+            document.getElementById("passwordLandcheck").style.display="none";
+            return 1;
+        }
+    }
+    function userRegister(){
+        var value1 = document.getElementById("accountUser").value;
+        var value2 = document.getElementById("passwordUser").value;
+        var value3 = document.getElementById("nameUser").value;
+        var value4 = document.getElementById("phoneUser").value;
+        var value5 = document.getElementById("emailUser").value;
+        var value6 = document.getElementById("repasswordUser").value;
+
+        check[0] = AccountCheck(value1);
+        check[1] = PasswordCheck(value2);
+        check[2] = NameCheck(value3);
+        check[3] = PhoneCheck(value4);
+        check[4] = EmailCheck(value5);
+        check[5] = RePasswordCheck(value6);
+        /*alert(check[0]);
+        alert(check[1]);
+        alert(check[2]);
+        alert(check[3]);
+        alert(check[4]);
+        alert(check[5]);*/
+        var value = check[0]*check[1]*check[2]*check[3]*check[4]*check[5];
+
+        if(value == 0){
+            $("#errorMsg").empty();
+            $("#errorMsg").append("请填写完整信息！");
+        }else {
+            var formdata = $("#userRegister").serialize();
+            $.ajax({
+                url: "/User/register",
+                type: "post",
+                dataType : "json",
+                data: formdata,
+                async : false,
+                success:function(data){
+                    if (data.status == 1){
+                        window.location.href="index.html";
+                    }else{
+                        $("#errorMsg").append("输入正确的账号和密码");
+                    }
+                }
+            })
+        }
+    }
+    function landlordRegister(){
+        var account = document.getElementById("accountLandlord").value;
+        var password = document.getElementById("passwordLandlord").value;
+        if(account==""||password==""){
+            $("#errorMsgL").append("请输入账号密码！");
+        }else {
+            var formdata = $("#landlordRegister").serialize();
+            $.ajax({
+                url: "/Landlord/register",
+                type: "post",
+                dataType : "json",
+                data: formdata,
+                async : false,
+                success:function(data){
+                    if(data.status==1){
+                        window.location.href="";
+                        /*跳转管理员页面*/
+                    }else{
+                        $("#errorMsgL").append("输入正确的账号和密码");
+                    }
+                }
+            })
+        }
+
+    }
+</script>
+<script type="text/javascript">
+    $(function(){
+        $(".screenbg ul li").each(function(){
+            $(this).css("opacity","0");
+        });
+        $(".screenbg ul li:first").css("opacity","1");
+        var index = 0;
+        var t;
+        var li = $(".screenbg ul li");
+        var number = li.size();
+        function change(index){
+            li.css("visibility","visible");
+            li.eq(index).siblings().animate({opacity:0},3000);
+            li.eq(index).animate({opacity:1},3000);
+        }
+        function show(){
+            index = index + 1;
+            if(index<=number-1){
+                change(index);
+            }else{
+                index = 0;
+                change(index);
+            }
+        }
+        t = setInterval(show,8000);
+        //根据窗口宽度生成图片宽度
+        var width = $(window).width();
+        $(".screenbg ul img").css("width",width+"px");
+    });
+</script>
+</html>

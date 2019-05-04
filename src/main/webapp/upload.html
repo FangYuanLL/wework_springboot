@@ -1,0 +1,329 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+
+    <meta http-equiv="Content-Type" content="multipart/form-data; charset=utf-8" />
+    <link href="css/uploadstyle.css" rel="stylesheet" rev="stylesheet" type="text/css" media="all" />
+    <link rel="stylesheet" href="mystyle.css">
+    <title>文件上传</title>
+    <script type="text/javascript" src="js/jQuery1.7.js"></script>
+    <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="js/jquery1.42.min.js"></script>
+    <script type="text/javascript" src="js/jquery.SuperSlide.js"></script>
+    <script type="text/javascript" src="js/Validform_v5.3.2_min.js"></script>
+</head>
+<body>
+<header class="header-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <!-- Logo Start -->
+                <div class="logo-wrap">
+                    <a href="#"><img src="images/logo.png" alt=""></a>
+                </div>
+                <!-- Logo End -->
+            </div>
+            <div class="col-md-9">
+                <!-- Main Menu Start -->
+                <div class="main-menu">
+                    <nav>
+                        <ul id="nav">
+                            <li ><a href="http://localhost:8080/index.html">主页</a></li>
+                            <!--<li><a href="#">搜索房源</a>
+                                <ul class="sub-menu">
+                                    <li onclick="cityInformation('北京')"><a href="#">北京</a></li>
+                                    <li onclick="cityInformation('上海')"><a href="#">上海</a></li>
+                                    <li onclick="cityInformation('深圳')"><a href="#">深圳</a></li>
+                                    <li onclick="cityInformation('广州')"><a href="#">广州</a></li>
+                                    <li onclick="cityInformation('香港')"><a href="#">香港</a></li>
+                                    <li onclick="cityInformation('成都')"><a href="#">成都</a></li>
+                                    <li onclick="cityInformation('武汉')"><a href="#">武汉</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#">办公室类型</a>
+                                <ul class="sub-menu">
+                                    <li onclick="TypeInformation('整租')"><a href="#">整租</a></li>
+                                    <li onclick="TypeInformation('合租')"><a href="#">合租</a></li>
+                                </ul>
+                            </li>-->
+                            <li><a href="http://localhost:8080/upload.html">业主委托</a></li>
+                            <li><a onclick="checkUser()">后台管理</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <!-- Main Menu End -->
+            </div>
+        </div>
+    </div>
+</header>
+
+<div id="">
+
+    <div class="">
+
+        <div class="" ></div>
+        <!--// form表单必须是post提交 enctype必须为multipart/form-data; action="/house/HouseInformation"-->
+        <form  action="/house/HouseInformation" method="post" style="margin-left:400px"  enctype="multipart/form-data">
+            <div>
+                <label style="font-size:28px;" >&nbsp;办公楼：</label>
+                <input style="width:200px;height:40px;margin-top:10px;padding:0px 15px;border:1px solid rgba(0, 0, 0, .15);border-radius:6px;color:#000000;letter-spacing:2px;font-size:16px;" type="text" id="officename" name="officename" onblur="" />
+                <span id="officenamecheck" name="officenamecheck" style="color:red;display: none">*</span>
+            </div>
+            <div>
+                <label style="font-size:28px;" >&nbsp;&nbsp;&nbsp;城市：</label>
+                <input style="width:200px;height:40px;margin-top:10px;padding:0px 15px;border:1px solid rgba(0, 0, 0, .15);border-radius:6px;color:#000000;letter-spacing:2px;font-size:16px;" type="text" id="city" name="city" onblur="" />
+                <span id="citycheck" name="citycheck" style="color:red;display: none">*</span>
+            </div>
+            <div>
+                <label style="font-size:28px;">&nbsp;&nbsp;&nbsp;城区：</label>
+                <input type="text" id="area" name="area" onblur="" />
+                <span id="areacheck" name="areacheck" style="color:red;display: none">*</span>
+            </div>
+            <div>
+                <label style="font-size:28px;">&nbsp;&nbsp;&nbsp;地址：</label>
+                <input type="text" id="address" name="address" onblur="" />
+                <span id="addresscheck" name="addresscheck" style="color:red;display: none">*</span>
+            </div>
+            <div>
+                <label style="font-size:28px;">&nbsp;&nbsp;&nbsp;类型：</label>
+                <select id="officetype" name="officetype" style="width:200px;
+	            height:40px;
+	            margin-top:10px;
+	            padding:0px 15px;
+	            border:1px solid rgba(0, 0, 0, .15);
+	            border-radius:6px;
+	            color:#000000;
+	            letter-spacing:2px;
+	            font-size:16px;
+	            background:transparent;font-size: 20px" onblur="DisplayNumberFrame(this.value)">
+                    <option value="整租">整租</option>
+                    <option value="合租">合租</option>
+                </select>
+                <input type="text" id="officenumber" name="officenumber" style="width:80px;
+	            height:40px;
+	            margin-top:10px;
+	            padding:0px 15px;
+	            border:1px solid rgba(0, 0, 0, .15);
+	            border-radius:6px;
+	            color:#000000;
+	            letter-spacing:2px;
+	            font-size:16px;
+	            background:transparent;font-size: 20px;display: none" placeholder="数量" />
+            </div>
+            <div>
+                <label style="font-size:28px;">&nbsp;&nbsp;&nbsp;人数：</label>
+                <input type="text" id="person_number" name="person_number" onblur="" />
+                <span id="person_numbercheck" name="person_numbercheck" style="color:red;display: none">*</span>
+            </div>
+            <div>
+                <label style="font-size:28px;">&nbsp;&nbsp;&nbsp;价格：</label>
+                <input type="text" id="price" name="price" onblur="" />
+                <span id="pricecheck" name="pricecheck" style="color:red;display: none">*</span>
+            </div>
+            <div>
+                <label style="font-size:28px;">&nbsp;&nbsp;&nbsp;定金：</label>
+                <input type="text" id="prepayment" name="prepayment" onblur="" />
+                <span id="prepaymentcheck" name="prepaymentcheck" style="color:red;display: none">*</span>
+            </div>
+            <div>
+                <label for="introduce" style="font-size:28px;vertical-align:top">&nbsp;&nbsp;&nbsp;介绍：</label>
+                <textarea id="introduce" name="introduce" style="width:600px; height:150px;margin-top:10px;padding:0px 15px;border:1px solid rgba(0, 0, 0, .15);border-radius:6px;color:#000000;letter-spacing:2px;
+	            font-size:16px;
+	            background:transparent"  placeholder="请输入介绍信息" onblur="" ></textarea>
+            </div>
+            <!--//提交文件的input类型必须为file.-->
+            <div>
+                <label style="font-size:28px;">&nbsp;&nbsp;&nbsp;文件：</label>
+                <input id="file" type="file"  name="file"  style="width: 200px;height: 40px;font-size: 20px;" multiple="multiple"  />
+            </div>
+            <div style="margin-left: 650px">
+                <input type="submit" value="提交" style="width:100px;height: 40px;align: right;" >
+            </div>
+        </form>
+    </div>
+</div>
+
+<section class="footer-top-area  area-pading">
+    <div class="container">
+        <div class="row">
+
+            <!-- Single Footer Widget-->
+            <div class="col-md-3 hidden-sm">
+                <div class="single-footer-widget fix">
+                    <div class="widget-title">
+                        <h3>搜 索 房 源</h3>
+                    </div>
+                    <!--<div class="link-list">-->
+                    <ul style="font-size: 20px">
+                        <li><a href="#">北京</a></li>
+                        <li><a href="#">上海</a></li>
+                        <li><a href="#">深圳</a></li>
+                        <li><a href="#">广州</a></li>
+                        <li><a href="#">重庆</a></li>
+                        <li><a href="#">成都</a></li>
+                        <li><a href="#">杭州</a></li>
+                        <li><a href="#">武汉</a></li>
+                    </ul>
+                    <!-- </div>-->
+                </div>
+            </div>
+
+            <div class="col-md-3 hidden-sm">
+                <div class="single-footer-widget fix">
+                    <div class="widget-title">
+                        <h3>办 公 类 型</h3>
+                    </div>
+                    <ul style="font-size: 20px">
+                        <li><a href="#">联合办公</a></li>
+                        <li><a href="#">传统办公</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-md-3 col-sm-4">
+                <div class="single-footer-widget fix">
+                    <div class="widget-title">
+                        <h3> 联 系 我 们</h3>
+                    </div>
+                </div>
+                <!--<div class="address-wrap">
+                  <i class="fa fa-map-marker"></i>
+                  <div class="address-text">
+                    <h4>Address:</h4>
+                    <p>1000 Front St <br>San Francisco, CA 94111 <br>United States. <br></p>
+                  </div>
+                </div>-->
+                <div class="address-wrap">
+                    <i class="fa fa-phone"></i>
+                    <div class="address-text">
+                        <h4>电话：</h4>
+                        <p>+ 188 2741 5919</p>
+                    </div>
+                </div>
+                <div class="address-wrap">
+                    <i class="fa fa-envelope"></i>
+                    <div class="address-text">
+                        <h4>邮箱：</h4>
+                        <p>Fangyuan__Liu@126.com</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Single Footer Widget End-->
+            <div class="col-md-3 col-sm-4">
+                <div class="single-footer-widget fix agents-widget">
+                    <div class="widget-title">
+                        <h3> 关 于 我 们</h3>
+                    </div>
+                    <!--<div class="single-property-footer-post">
+                      <div class="properties-img pull-left">
+                        <a href="#"><img src="images/agent/7.png" alt=""></a>
+                      </div>
+                      <div class="properties-content-footer pull-left">
+                        <a href="#"><h3>William Brooks</h3></a>
+                        <p>Land & Apartment</p>
+                        <p class="agent-mail">willam@gmail.com</p>
+                      </div>
+                    </div>-->
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+</body>
+<script>
+    function cityInformation(value){
+        alert(value);
+        $.ajax({
+            url : "/house/getHouseInformation",//请求地址
+            dataType : 'json',//数据格式
+            type : "post",//请求方式
+            data :{city:value},//数据请求发送，从searchform中提取数据
+            async : false,//是否异步请求
+            success : function(msg) {
+                if (msg.status == 1) {
+                    var data = eval(msg.list);
+                    var ImageName = eval(msg.listImage);
+                    /*清空之前append的内容*/
+                    $("#displaybody").empty();
+                    var count = 0;
+                    var value="";
+                    $.each(data, function (num) {
+                        value = "<div class='col-md-4 col-sm-6' style='margin-top: 15px'><div class='single-featured-properties'><div class='properties-image'>"
+                            +"<a href='#'><img src='images/houseImages/"+ImageName[num]+"' alt=''></a></div><div class='sale-tag'><p>For Rent</p></div>"
+                            +"<div class='properties-content'><h3><a href='#'>"+data[num].empty+"</a></h3><p><i class='fa fa-map-marker'></i>"+data[num].city+"  "+data[num].area+"</p>"
+                            +"<div class='price-detail'><p class='price-range pull-left'>$"+data[num].price+"</p><a href='javascript:void(0)' onclick='tranforID("+data[num].id+")' class='price-detail pull-right'>预定<i class='fa fa-angle-right'></i></a>"
+                            +"</div></div></div>";
+
+                        $("#displaybody").append(value);
+                    })
+
+                    //value="";
+                }
+                /*跳转到登录页面,重新登录*/
+                /*window.location.href="";*/
+            },
+        })
+    }
+
+    function TypeInformation(value){
+        alert(value);
+        $.ajax({
+            url : "/house/getHouseInformation",//请求地址
+            dataType : 'json',//数据格式
+            type : "post",//请求方式
+            data :{officetype:value},//数据请求发送，从searchform中提取数据
+            async : false,//是否异步请求
+            success : function(msg) {
+                if (msg.status == 1) {
+                    var data = eval(msg.list);
+                    var ImageName = eval(msg.listImage);
+                    /*清空之前append的内容*/
+                    $("#displaybody").empty();
+                    var count = 0;
+                    var value="";
+                    $.each(data, function (num) {
+                        value = "<div class='col-md-4 col-sm-6' style='margin-top: 15px'><div class='single-featured-properties'><div class='properties-image'>"
+                            +"<a href='#'><img src='images/houseImages/"+ImageName[num]+"' alt=''></a></div><div class='sale-tag'><p>For Rent</p></div>"
+                            +"<div class='properties-content'><h3><a href='#'>"+data[num].empty+"</a></h3><p><i class='fa fa-map-marker'></i>"+data[num].city+"  "+data[num].area+"</p>"
+                            +"<div class='price-detail'><p class='price-range pull-left'>$"+data[num].price+"</p><a href='javascript:void(0)' onclick='tranforID("+data[num].id+")' class='price-detail pull-right'>预定<i class='fa fa-angle-right'></i></a>"
+                            +"</div></div></div>";
+
+                        $("#displaybody").append(value);
+                    })
+
+                    //value="";
+                }
+                /*跳转到登录页面,重新登录*/
+                /*window.location.href="";*/
+            },
+        })
+    }
+
+    function DisplayNumberFrame(value){
+        if (value == '合租') {
+            document.getElementById("officenumber").style.display = "inline-block";
+        }else {
+            document.getElementById("officenumber").style.display = "none";
+        }
+    }
+</script>
+<script>
+    function checkUser(){
+        $.ajax({
+            url: "/User/CurrentUser",
+            dataType: 'json',
+            type: "post",
+            data: "",
+            async: false,
+            success: function (msg) {
+                if (msg.status == 1){
+                    window.location.href = "userManage.html";
+                }else{
+                    window.location.href = "administrator.html";
+                }
+            }
+        })
+    }
+</script>
+</html>

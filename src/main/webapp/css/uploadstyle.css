@@ -1,0 +1,24 @@
+input[type=text], input[type=password] {
+	width:200px;
+	height:40px;
+	margin-top:10px;
+	padding:0px 15px;
+	border:1px solid rgba(0, 0, 0, .15);
+	border-radius:6px;
+	color:#000000;
+	letter-spacing:2px;
+	font-size:16px;
+	background:transparent;
+}
+.officetype{
+	width:200px;
+	height:40px;
+	margin-top:10px;
+	padding:0px 15px;
+	border:1px solid rgba(0, 0, 0, .15);
+	border-radius:6px;
+	color:#000000;
+	letter-spacing:2px;
+	font-size:16px;
+	background:transparent;
+}

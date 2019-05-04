@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+    <title>Home</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="mystyle.css">
+
+    <link rel="stylesheet" type="text/css" href="asset/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="asset/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="asset/css/simple-line-icons.css">
+    <link rel="stylesheet" type="text/css" href="asset/css/ionicons.min.css">
+    <link rel="stylesheet" type="text/css" href="asset/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="asset/css/owl.carousel.min.css">
+    <link rel="stylesheet" type="text/css" href="asset/css/owl.theme.default.min.css">
+    <link rel="stylesheet" type="text/css" href="asset/css/slick.css">
+    <link rel="stylesheet" type="text/css" href="asset/css/slick-theme.css">
+    <link rel="stylesheet" type="text/css" href="asset/css/fonts.css">
+
+    <link rel="stylesheet" type="text/css" href="asset/css/fix-style.css">
+    <link rel="stylesheet" type="text/css" href="asset/css/main.css">
+
+
+    <script src="asset/js/jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/modernizr-2.8.3.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.scrollUp.min.js"></script>
+    <script src="js/jquery.bxslider.min.js"></script>
+    <script src="js/wow.min.js"></script>
+    <script src="js/jquery.meanmenu.js"></script>
+
+
+</head>
+<body>
+<!-- Start Header Top area -->
+<div class="header-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5 col-sm-6">
+                <div class="phone-mail-area">
+                    <ul>
+                        <li>
+                            <a href="#"><i class="fa fa-phone"></i>+86 188-2741-5919</a>
+                        </li>
+                        <li>
+                            <a href="mailto:admin@bootexperts.com"><i class="fa fa-envelope-o"></i>admin@bootexperts.com</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-7 col-sm-6">
+                <div class="login-bookmark-area">
+                    <div class="register-login">
+                        <a href="login.html"><i class="fa fa-user"></i>登录</a>
+                        <a href="register.html"><i class="fa fa-sign-in"></i>注册</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End of Header Top area -->
+<!-- Header Area Start -->
+<header class="header-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <!-- Logo Start -->
+                <div class="logo-wrap">
+                    <a href="#"><img src="images/logo.png" alt=""></a>
+                </div>
+                <!-- Logo End -->
+            </div>
+            <div class="col-md-9">
+                <!-- Main Menu Start -->
+                <div class="main-menu">
+                    <nav>
+                        <ul id="nav">
+                            <li class="active"><a href="#">主页</a></li>
+                            <!--<li><a href="#">搜索房源</a>
+                                <ul class="sub-menu">
+                                    <li><a href="#">北京</a></li>
+                                    <li><a href="#">上海</a></li>
+                                    <li><a href="#">深圳</a></li>
+                                    <li><a href="#">广州</a></li>
+                                    <li><a href="#">香港</a></li>
+                                    <li><a href="#">成都</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#">办公室类型</a>
+                                <ul class="sub-menu">
+                                    <li><a href="#">整租</a></li>
+                                    <li><a href="#">合租</a></li>
+                                </ul>
+                            </li>-->
+                            <li><a href="http://localhost:8080/upload.html">业主委托</a></li>
+                            <li><a onclick="checkUser()">后台管理</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <!-- Main Menu End -->
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Start main -->
+<div class="wrappage">
+    <main>
+        <div class="style-main-9"  style="margin:0px;padding:0;">
+            <!--slide-->
+            <div class="slide-products">
+                <div class="container container-240">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-3"></div>
+                        <div class="col-lg-9 col-md-9 col-sm-12">
+                            <div class="row" >
+                                <div class="col-md-8 col-sm-7 col-xs-12" id="modscc">
+                                   <div class="slide" >
+                                    <div class="e-slide" >
+                                        <div class="magie-bd">
+                                            <div class=" v2" id="ImageSlide" >
+                                                <div  id="ImageSlideKV" style="width:580px;height:300px;overflow:hidden;margin:auto;">
+                                                    <!--<img src="images/1.jpg" alt="">
+                                                    <img src="images/2.jpg" alt="">-->
+                                                </div>
+                                                <div style="text-align: center;margin-top: 50px">
+                                                    <div style="display: inline-block">
+                                                        <input type="button" style="width:80px;height: 40px;font-size: 20px" value="上一张" onclick="a()">
+                                                    </div>
+                                                    <div id="PictureNumber" style="display: inline-block;font-size: 25px">
+                                                    <!--图片信息填充处-->
+                                                    </div>
+                                                    <div style="display: inline-block">
+                                                        <input type="button" style="width:80px;height: 40px;font-size: 20px" value="下一张" onclick="b()">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                   </div>
+                                </div>
+                                <div class="col-md-4 col-sm-5 col-xs-12">
+                                    <div class="header-right-sidebar">
+                                        <!--<div class="title-bg"><h3 class="widget-title">Special</h3></div>-->
+                                        <div class=" product-item engoj_grid_parent">
+                                            <div class="product-inner v2" id="InformationShow">
+                                                <div class="flex align-center" id="descriptor">
+                                                   <!--城市等信息的填充处-->
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div>
+
+                                    <input type="button" style="font-size: 25px;border:none" value="介绍" >
+                                    <input type="button" style="font-size: 25px;border:none" onclick="MapButton()" value="周围地图">
+                                    <div style="width:850px;height:0px;border-bottom: 1px solid #0000FF;" />
+                                </div>
+                            </div>
+                            <div style="width: 850px;height: 200px;font-size: 20px;">
+                                <p style="text-indent:2em" id="introduce" >
+
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!--endslide-->
+        </div>
+    </main>
+</div>
+
+<section class="footer-top-area  area-pading">
+    <div class="container">
+        <div class="row">
+            <!-- Single Footer Widget-->
+            <div class="col-md-3 hidden-sm">
+                <div class="single-footer-widget fix">
+                    <div class="widget-title">
+                        <h3>搜 索 房 源</h3>
+                    </div>
+                    <ul style="font-size: 20px">
+                        <li><a href="#">北京</a></li>
+                        <li><a href="#">上海</a></li>
+                        <li><a href="#">深圳</a></li>
+                        <li><a href="#">广州</a></li>
+                        <li><a href="#">重庆</a></li>
+                        <li><a href="#">成都</a></li>
+                        <li><a href="#">杭州</a></li>
+                        <li><a href="#">武汉</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-md-3 hidden-sm">
+                <div class="single-footer-widget fix">
+                    <div class="widget-title">
+                        <h3>办 公 类 型</h3>
+                    </div>
+                    <ul style="font-size: 20px">
+                        <li><a href="#">联合办公</a></li>
+                        <li><a href="#">传统办公</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-md-3 col-sm-4">
+                <div class="single-footer-widget fix">
+                    <div class="widget-title">
+                        <h3> 联 系 我 们</h3>
+                    </div>
+                </div>
+
+                <div class="address-wrap">
+                    <i class="fa fa-phone"></i>
+                    <div class="address-text">
+                        <h4>电话：</h4>
+                        <p>+ 188 2741 5919</p>
+                    </div>
+                </div>
+                <div class="address-wrap">
+                    <i class="fa fa-envelope"></i>
+                    <div class="address-text">
+                        <h4>邮箱：</h4>
+                        <p>Fangyuan__Liu@126.com</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Single Footer Widget End-->
+            <div class="col-md-3 col-sm-4">
+                <div class="single-footer-widget fix agents-widget">
+                    <div class="widget-title">
+                        <h3> 关 于 我 们</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+</body>
+<script src="asset/js/main.js"></script>
+<script src="asset/js/owl.carousel.min.js"></script>
+<script src="asset/js/slick.min.js"></script>
+<script>
+    var AddressName = "";//用于存储地址的
+    $(document).ready(function() {
+        $.ajax({
+            url : "/house/getHouseInformationById",
+            dataType : 'json',
+            type : "post",
+            data :"",
+            async : false,
+            success : function(msg) {
+                if (msg.status == 1) {
+                    var PictureCount = 0;
+                    var HouseData = eval(msg.houseInformation);
+                    var ImageData = eval(msg.ImageList);
+                    var valueImage = "";
+                    var valueInformation = "";
+                    var introduceText = "";
+
+                    $.each(ImageData, function (num) {
+                        valueImage += "<img src='images/houseImages/"+ImageData[num].imgname+"'>";
+                        PictureCount++;
+                    })
+                    $("#ImageSlideKV").append(valueImage);
+                    $("#PictureNumber").empty();
+                    var PictureValue = "共"+PictureCount+"张";
+                    $("#PictureNumber").append(PictureValue);
+
+
+                    valueInformation = "<div class='product-info'>" +
+                        "<div class='color-group'></div>" +
+                        "<div class='element-list element-list-left'></div>" +
+                        "<div class='element-list element-list-middle'>" +
+                        "<p class='product-cate'></p>" +
+                        "<h3 class='product-title'></h3>" +
+                        "<div class='product-bottom v2'>" +
+                        "<div class='product-price' >" +
+                        "<p style='font-size: 20px'>&emsp;&emsp;城市:"+HouseData.city+"</p>" +
+                        "<p style='font-size: 20px'>&emsp;&emsp;地区:"+HouseData.area+"</p>" +
+                        "<p style='font-size: 20px'>具体地址:"+HouseData.address+"</p>" +
+                        "<p style='font-size: 20px'>办公类型:"+HouseData.officetype+"</p>" +
+                        "<p style='font-size: 20px'>最大人数:"+HouseData.personNumber+"人</p>" +
+                        "<p style='font-size: 20px'>&emsp;&emsp;价格:"+HouseData.price+"￥/间</p>" +
+                        "<p style='font-size: 20px'>预付定金:"+HouseData.prepayment+"￥</p>" +
+                        "<p style='font-size: 20px'>&emsp;&emsp;余量:"+HouseData.remainnumber+"</p>" +
+                        "<p style='font-size: 20px'>预定数量&nbsp;:&nbsp;<input type='button' id='add' onclick='add()' value='+' style='width: 20px;height: 40px'>" +
+                        "<input type='text' id='purchaseNumber' align='center' value='1'  style='width: 60px;height: 40px' disabled='true'><input  type='button' id='decrease' onclick='decrease()' value='-' style='width: 20px;height: 40px'></p>"+
+                        "<p style='font-size: 20px'>预定时间:<input type='date'  id='startTime'/><br> "+
+                        "<p style='font-size: 20px'>结束时间:<input type='date'  id='endTime'/><br><br> "+
+                        "<input type='button' value='收藏' onclick='collect("+HouseData.id+")' style='display:inline;margin-right:30px;width: 100px;height: 30px'>" +
+                        "<input type='button' value='预定' onclick='order("+HouseData.id+")' style='display:inline;width: 100px;height: 30px'>"+
+                        "</div></div></div></div>";
+                    /*date是年月日，而datetime-local是包括年月日时分*/
+                    $("#descriptor").append(valueInformation);
+
+                    if (HouseData.officetype == "整租"){
+                        document.getElementById("add").style.display="none";
+                        document.getElementById("decrease").style.display="none";
+                    }
+                    introduceText = "<div style='word-break:break-all;word-wrap:break-word'><p>"+HouseData.introduce+"</p></div>";
+
+                    $("#introduce").append(introduceText);
+
+                    AddressName = HouseData.city+HouseData.area+HouseData.address;
+
+                }else{
+                    alert("$(document).ready(function()...) 有误！");
+                }
+                /*跳转到登录页面,重新登录
+                window.location.href="";*/
+            },
+        })
+
+    })
+
+    function collection(id){
+        $.ajax({
+            url : "/house/collectionHouse",
+            dataType : 'json',
+            type : "post",
+            data :{"houseid":id},
+            async : false,
+            success : function(msg) {
+                if (msg.status==-1){
+                    alert("收藏操作有误！");
+                }
+            }
+        })
+    }
+
+    function order(id){
+        //alert("id:"+id);
+        var number = document.getElementById("purchaseNumber").value;
+        var startTime = document.getElementById("startTime").value;
+        var endTime = document.getElementById("endTime").value;
+        startTime = startTime.replace("T"," ");
+        endTime = endTime.replace("T"," ");
+        var startDate = new Date(Date.parse(startTime));
+        var endDate = new Date(Date.parse(endTime));
+
+        var now = new Date();
+        var nowTime = now.toLocaleString().replace(/[年月]/g, '-').replace(/[日上下午]/g, '');
+
+        if (((startDate>now) && (endDate>startDate)) == true){
+            alert("123");
+            $.ajax({
+                url : "/house/Order",
+                dataType : 'json',
+                type : "post",
+                data :{
+                       "number":number,
+                       "id":id,
+                       "nowTime":nowTime,
+                       "startTime":startTime,
+                       "endTime":endTime
+                },
+                async : false,
+                success : function(msg) {
+                    if(msg.status >= 0){
+                        if (msg.status==1){
+                            //跳转到支付页面页面,重新登录
+                            nowTime = nowTime.replace(" ","_");
+                            //alert("nowTime:"+nowTime);
+                            PayOffURL = "payoff.html?houseId="+id+"&nowTime="+nowTime;
+                            PayOffURL.replace(/\s*/g,"_");
+                            window.location.href= PayOffURL;
+                            //alert("预定成功！");
+                        }
+                        else {
+                            alert("办公室数量不够！无法预订！");
+                        }
+                    }else {
+                        alert("business插入有误或者house_information的remainNumber更新有问题!");
+                    }
+                }
+            })
+        }
+        else {
+            alert("输入格式错误!");
+        }
+
+    }
+    function add(){
+        var number = document.getElementById("purchaseNumber").value;
+        //alert(number);
+        number++;
+        document.getElementById("purchaseNumber").value = number;
+    }
+    function decrease(){
+        var number = document.getElementById("purchaseNumber").value;
+        if (number-1>0){
+            document.getElementById("purchaseNumber").value = number-1;
+        } else {
+            document.getElementById("purchaseNumber").value = 0;
+        }
+    }
+    /*---------------------------start-----------*/
+    //图片滑动按钮
+    function a(){
+        //alert(110);
+        $('#ImageSlideKV').find('img').eq(0).appendTo($('#ImageSlideKV'));
+
+    }
+    function b(){
+        $('#ImageSlideKV').find('img:last').eq(0).prependTo($('#ImageSlideKV'));
+    }
+    /*---------------------------end-----------*/
+
+    function MapButton(){
+        //alert(AddressName);
+        var mapurl = "display.html?name="+AddressName;
+        //alert(mapurl);
+        mapurl = encodeURI(encodeURI(mapurl));
+        LayUIFrame(mapurl);
+    }
+</script>
+<script type="text/javascript" src="layer/layer.js"></script>
+<script>
+    function LayUIFrame(MapUrl){
+        layer.open({
+            type: 2,
+            title: '周围详情',
+            maxmin: true,
+            shadeClose: true, //点击遮罩关闭层
+            area : ['800px' , '620px'],
+            content: MapUrl
+        });
+    }
+</script>
+<script>
+    function checkUser(){
+        $.ajax({
+            url: "/User/CurrentUser",
+            dataType: 'json',
+            type: "post",
+            data: "",
+            async: false,
+            success: function (msg) {
+                if (msg.status == 1){
+                    window.location.href = "userManage.html";
+                }else{
+                    window.location.href = "administrator.html";
+                }
+            }
+        })
+    }
+</script>
+</html>
+
+

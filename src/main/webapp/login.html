@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>共享办公室系统用户登录</title>
+    <link href="css/login.css" rel="stylesheet" rev="stylesheet" type="text/css" media="all" />
+    <script type="text/javascript" src="js/jQuery1.7.js"></script>
+    <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="js/jquery1.42.min.js"></script>
+    <script type="text/javascript" src="js/jquery.SuperSlide.js"></script>
+    <script type="text/javascript" src="js/Validform_v5.3.2_min.js"></script>
+</head>
+<body>
+<div id="tab">
+    <ul class="tab_menu">
+        <li class="selected" style="width: 49%">用户登录</li>
+        <li style="width: 50%">管理员登录</li>
+    </ul>
+    <div class="tab_box">
+        <!-- 用户登录开始 -->
+        <div>
+            <div class="stu_error_box"></div>
+            <form id="userLogin" >
+                <div>
+                    <label>账&nbsp;&nbsp;&nbsp;号：</label>
+                    <input type="text" id="accountUser" name="account" />
+                </div>
+                <div>
+                    <label>密&nbsp;&nbsp;&nbsp;码：</label>
+                    <input type="password" id="passwordUser" name="password"/>
+                </div>
+                <div id="errorMsg" name="errorMsg" style="font-size: 24px"></div>
+                <div>
+                    <input type="button" style="width:100%;height: 45px;font-size: 24px;	background:#ef4300;" onclick="userLogin()" value="登录">
+                </div>
+            </form>
+        </div>
+        <!-- 用户登录结束-->
+        <!-- 业主登录开始-->
+        <div class="hide">
+            <div class="tea_error_box"></div>
+            <form id="landlordLogin">
+                <div id="username">
+                    <label>账&nbsp;&nbsp;&nbsp;号：</label>
+                    <input type="text" id="accountLandlord" name="account" />
+                </div>
+                <div id="password">
+                    <label>密&nbsp;&nbsp;&nbsp;码：</label>
+                    <input type="password" id="passwordLandlord" name="password" />
+                </div>
+                <div id="errorMsgL" name="errorMsgL" style="font-size: 24px"></div>
+                <div>
+                    <input type="button" style="width:100%;height: 45px;font-size: 24px;	background:#ef4300;" onclick="landlordLogin()" value="登录">
+                </div>
+            </form>
+        </div>
+        <!-- 业主登录结束-->
+
+    </div>
+</div>
+<div class="screenbg">
+    <ul>
+        <li><a href="javascript:;"><img src="images/0pok.jpg"></a></li>
+
+    </ul>
+</div>
+</body>
+<script type="text/javascript">
+    $(document).ready(function(){
+        var $tab_li = $('#tab ul li');
+        $tab_li.hover(function(){
+            $(this).addClass('selected').siblings().removeClass('selected');
+            var index = $tab_li.index(this);
+            $('div.tab_box > div').eq(index).show().siblings().hide();
+        });
+    });
+</script>
+<script type="text/javascript">
+    function userLogin(){
+        var account = document.getElementById("accountUser").value;
+        var password = document.getElementById("passwordUser").value;
+        if(account==""||password==""){
+            $("#errorMsg").append("请输入账号密码！");
+        }else {
+            var formdata = $("#userLogin").serialize();
+            $.ajax({
+                url: "/User/Login",
+                type: "post",
+                dataType : "json",
+                data: formdata,
+                async : false,
+                success:function(data){
+                    if (data.status == 1){
+                        window.location.href="index.html";
+                    }else{
+                        $("#errorMsg").append("输入正确的账号和密码");
+                    }
+                }
+            })
+        }
+    }
+    function landlordLogin(){
+        var account = document.getElementById("accountLandlord").value;
+        var password = document.getElementById("passwordLandlord").value;
+        if(account==""||password==""){
+            $("#errorMsgL").append("请输入账号密码！");
+        }else {
+            var formdata = $("#landlordLogin").serialize();
+            $.ajax({
+                url: "/Landlord/login",
+                type: "post",
+                dataType : "json",
+                data: formdata,
+                async : false,
+                success:function(data){
+                    if(data.status==1){
+                        window.location.href="index.html";
+                        /*跳转管理员页面*/
+                    }else{
+                        $("#errorMsgL").append("输入正确的账号和密码");
+                    }
+                }
+            })
+        }
+
+    }
+</script>
+<script type="text/javascript">
+    $(function(){
+        $(".screenbg ul li").each(function(){
+            $(this).css("opacity","0");
+        });
+        $(".screenbg ul li:first").css("opacity","1");
+        var index = 0;
+        var t;
+        var li = $(".screenbg ul li");
+        var number = li.size();
+        function change(index){
+            li.css("visibility","visible");
+            li.eq(index).siblings().animate({opacity:0},3000);
+            li.eq(index).animate({opacity:1},3000);
+        }
+        function show(){
+            index = index + 1;
+            if(index<=number-1){
+                change(index);
+            }else{
+                index = 0;
+                change(index);
+            }
+        }
+        t = setInterval(show,8000);
+        //根据窗口宽度生成图片宽度
+        var width = $(window).width();
+        $(".screenbg ul img").css("width",width+"px");
+    });
+</script>
+</html>

@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.wework.dao.house_InformationMapper" >
+  <resultMap id="BaseResultMap" type="com.example.wework.model.house_Information" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="landlordid" property="landlordid" jdbcType="INTEGER" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="area" property="area" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="officetype" property="officetype" jdbcType="VARCHAR" />
+    <result column="officenumber" property="officenumber" jdbcType="INTEGER" />
+    <result column="remainnumber" property="remainnumber" jdbcType="INTEGER" />
+    <result column="person_number" property="personNumber" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="INTEGER" />
+    <result column="prepayment" property="prepayment" jdbcType="INTEGER" />
+    <result column="image" property="image" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="rentornot" property="rentornot" jdbcType="VARCHAR" />
+    <result column="uuid" property="uuid" jdbcType="VARCHAR" />
+    <result column="empty" property="empty" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.example.wework.model.house_Information" extends="BaseResultMap" >
+    <result column="introduce" property="introduce" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, landlordid, city, area, address, officetype, officenumber, remainnumber, person_number,
+    price, prepayment, image, status, rentornot, uuid, empty
+  </sql>
+  <sql id="Blob_Column_List" >
+    introduce
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from house_information
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+<!--start-->
+  <select id="selectHouseID" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from house_information
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectHouseInformation" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from house_information
+    <where>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR}
+      </if>
+      <if test="area != null" >
+        and area = #{area,jdbcType=VARCHAR}
+      </if>
+      <if test="officetype != null" >
+        and officetype = #{officetype,jdbcType=VARCHAR}
+      </if>
+      <if test="status != null" >
+        and status = #{status,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+
+  <select id="getHouseInformationByLandlordID" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from house_information
+    where landlordid = #{landlordid,jdbcType=INTEGER}
+  </select>
+
+  <select id="getUnCheckHouse" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from house_information
+    where status = #{status,jdbcType=VARCHAR}
+  </select>
+
+  <!--end-->
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from house_information
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.example.wework.model.house_Information" >
+    insert into house_information (id, landlordid, city,
+      area, address, officetype,
+      officenumber, remainnumber, person_number,
+      price, prepayment, image,
+      status, rentornot, uuid,
+      empty, introduce)
+    values (#{id,jdbcType=INTEGER}, #{landlordid,jdbcType=INTEGER}, #{city,jdbcType=VARCHAR},
+      #{area,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{officetype,jdbcType=VARCHAR},
+      #{officenumber,jdbcType=INTEGER}, #{remainnumber,jdbcType=INTEGER}, #{personNumber,jdbcType=INTEGER},
+      #{price,jdbcType=INTEGER}, #{prepayment,jdbcType=INTEGER}, #{image,jdbcType=VARCHAR},
+      #{status,jdbcType=VARCHAR}, #{rentornot,jdbcType=VARCHAR}, #{uuid,jdbcType=VARCHAR},
+      #{empty,jdbcType=VARCHAR}, #{introduce,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.wework.model.house_Information" >
+    insert into house_information
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="landlordid != null" >
+        landlordid,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="area != null" >
+        area,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="officetype != null" >
+        officetype,
+      </if>
+      <if test="officenumber != null" >
+        officenumber,
+      </if>
+      <if test="remainnumber != null" >
+        remainnumber,
+      </if>
+      <if test="personNumber != null" >
+        person_number,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="prepayment != null" >
+        prepayment,
+      </if>
+      <if test="image != null" >
+        image,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="rentornot != null" >
+        rentornot,
+      </if>
+      <if test="uuid != null" >
+        uuid,
+      </if>
+      <if test="empty != null" >
+        empty,
+      </if>
+      <if test="introduce != null" >
+        introduce,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="landlordid != null" >
+        #{landlordid,jdbcType=INTEGER},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="officetype != null" >
+        #{officetype,jdbcType=VARCHAR},
+      </if>
+      <if test="officenumber != null" >
+        #{officenumber,jdbcType=INTEGER},
+      </if>
+      <if test="remainnumber != null" >
+        #{remainnumber,jdbcType=INTEGER},
+      </if>
+      <if test="personNumber != null" >
+        #{personNumber,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=INTEGER},
+      </if>
+      <if test="prepayment != null" >
+        #{prepayment,jdbcType=INTEGER},
+      </if>
+      <if test="image != null" >
+        #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="rentornot != null" >
+        #{rentornot,jdbcType=VARCHAR},
+      </if>
+      <if test="uuid != null" >
+        #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="empty != null" >
+        #{empty,jdbcType=VARCHAR},
+      </if>
+      <if test="introduce != null" >
+        #{introduce,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.wework.model.house_Information" >
+    update house_information
+    <set >
+      <if test="landlordid != null" >
+        landlordid = #{landlordid,jdbcType=INTEGER},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        area = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="officetype != null" >
+        officetype = #{officetype,jdbcType=VARCHAR},
+      </if>
+      <if test="officenumber != null" >
+        officenumber = #{officenumber,jdbcType=INTEGER},
+      </if>
+      <if test="remainnumber != null" >
+        remainnumber = #{remainnumber,jdbcType=INTEGER},
+      </if>
+      <if test="personNumber != null" >
+        person_number = #{personNumber,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=INTEGER},
+      </if>
+      <if test="prepayment != null" >
+        prepayment = #{prepayment,jdbcType=INTEGER},
+      </if>
+      <if test="image != null" >
+        image = #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="rentornot != null" >
+        rentornot = #{rentornot,jdbcType=VARCHAR},
+      </if>
+      <if test="uuid != null" >
+        uuid = #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="empty != null" >
+        empty = #{empty,jdbcType=VARCHAR},
+      </if>
+      <if test="introduce != null" >
+        introduce = #{introduce,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.example.wework.model.house_Information" >
+    update house_information
+    set landlordid = #{landlordid,jdbcType=INTEGER},
+      city = #{city,jdbcType=VARCHAR},
+      area = #{area,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      officetype = #{officetype,jdbcType=VARCHAR},
+      officenumber = #{officenumber,jdbcType=INTEGER},
+      remainnumber = #{remainnumber,jdbcType=INTEGER},
+      person_number = #{personNumber,jdbcType=INTEGER},
+      price = #{price,jdbcType=INTEGER},
+      prepayment = #{prepayment,jdbcType=INTEGER},
+      image = #{image,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      rentornot = #{rentornot,jdbcType=VARCHAR},
+      uuid = #{uuid,jdbcType=VARCHAR},
+      empty = #{empty,jdbcType=VARCHAR},
+      introduce = #{introduce,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.wework.model.house_Information" >
+    update house_information
+    set landlordid = #{landlordid,jdbcType=INTEGER},
+      city = #{city,jdbcType=VARCHAR},
+      area = #{area,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      officetype = #{officetype,jdbcType=VARCHAR},
+      officenumber = #{officenumber,jdbcType=INTEGER},
+      remainnumber = #{remainnumber,jdbcType=INTEGER},
+      person_number = #{personNumber,jdbcType=INTEGER},
+      price = #{price,jdbcType=INTEGER},
+      prepayment = #{prepayment,jdbcType=INTEGER},
+      image = #{image,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      rentornot = #{rentornot,jdbcType=VARCHAR},
+      uuid = #{uuid,jdbcType=VARCHAR},
+      empty = #{empty,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
