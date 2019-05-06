@@ -4,6 +4,8 @@ import com.example.wework.model.user_Customer;
 import com.example.wework.model.user_CustomerKey;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 public interface user_CustomerMapper {
 
     int deleteByPrimaryKey(user_CustomerKey key);
@@ -21,5 +23,9 @@ public interface user_CustomerMapper {
     user_Customer searchUser(@Param("account") String account ,@Param("password") String password);
 
     user_Customer SelectById(int id);
+
+    List<user_Customer> selectAll();
+
+    int deleteByID(int id);
 
 }

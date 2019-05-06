@@ -14,6 +14,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /*
@@ -198,14 +199,50 @@ public class UserController {
 
         String userType = LoginCheck.checkCurrent(request);
 
-        if(userType.equals("2") == true){
-            System.out.println("currenUser:administrator");
-            map.put("status",-1);
+        if (userType == null){
+            System.out.println("currenUser:未登录!");
+            map.put("status",-3);
         }else{
-            System.out.println("currenUser:customer");
-            map.put("status",1);
+            if(userType.equals("2") == true){
+                System.out.println("currenUser:administrator");
+                map.put("status",-1);
+            }else{
+                System.out.println("currenUser:customer");
+                map.put("status",1);
+            }
         }
 
+        return map;
+    }
+
+    @ResponseBody
+    @RequestMapping(value="/selectAllUser")
+    public Object SelectAllUser(){
+        Map map = new HashMap();
+        List<user_Customer> list = null;
+        list = userService.selectAll();
+        if (list!=null){
+            map.put("userlist",list);
+            map.put("status",1);
+        }else{
+            map.put("status",-1);
+        }
+
+        return map;
+    }
+
+    @ResponseBody
+    @RequestMapping(value="/deleteByID")
+    public Object deleteByID(HttpServletRequest request){
+        Map map = new HashMap();
+        String userid = request.getParameter("id");
+        int id = Integer.valueOf(userid);
+        int flag = userService.deleteByID(id);
+        if (flag > 0){
+            map.put("status",1);
+        }else{
+            map.put("status",-1);
+        }
 
         return map;
     }

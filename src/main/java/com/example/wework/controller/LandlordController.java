@@ -75,4 +75,16 @@ public class LandlordController {
         }
         return map;
     }
+
+    @ResponseBody
+    @RequestMapping(value = "/exit")
+    public Object AdministratorExit(HttpServletResponse response) {
+        Map map = new HashMap();
+        Cookie killCurrentCookie = new Cookie("current",null);
+        killCurrentCookie.setMaxAge(0);
+        killCurrentCookie.setPath("/");
+        response.addCookie(killCurrentCookie);
+        map.put("status",1);
+        return map;
+    }
 }

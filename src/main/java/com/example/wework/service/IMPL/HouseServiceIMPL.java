@@ -49,4 +49,9 @@ public class HouseServiceIMPL implements HouseService {
     public int deleteByPrimaryKey(Integer id) {
         return house.deleteByPrimaryKey(id);
     }
+
+    @Override
+    public int updateHouseStatus(int id) {
+        return house.updateHouseStatus(id);
+    }
 }

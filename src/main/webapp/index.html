@@ -101,7 +101,7 @@
 <div style="text-align: center">
   <form action="#" id="searchForm" style="display: inline-block;">
     <div >
-      <select name="Any"  style=" margin: 0;padding: 0; float: left;width: 100px;height: 60px;font-size: 25px" id="Any" onchange="ChangeArea(this.options[this.options.selectedIndex].value)">
+      <select name="city"  style=" margin: 0;padding: 0; float: left;width: 100px;height: 60px;font-size: 25px" id="city" onchange="ChangeArea(this.options[this.options.selectedIndex].value)">
         <option value="北京">北京</option>
         <option value="上海">上海</option>
         <option value="深圳">深圳</option>
@@ -118,7 +118,7 @@
         <option value="整租">整租</option>
         <option value="合租">合租</option>
       </select>
-      <input type="submit" value="Search" style="width: 80px;height: 60px;background: dodgerblue;border-color: dodgerblue;font-size: 20px" onclick="getInformation()">
+      <input type="button" value="Search" style="width: 80px;height: 60px;background: dodgerblue;border-color: dodgerblue;font-size: 20px" onclick="getInformation()">
     </div>
   </form>
 </div>
@@ -129,7 +129,7 @@
       <div class="col-md-12">
         <div class="properties-title">
           <h2>Featured Properties</h2>
-            <!--<a href="#" class="view-more">View More</a>-->
+            <a href="#" class="view-more" onclick="ViewAll()">View ALL</a>
         </div>
       </div>
     </div>
@@ -222,7 +222,7 @@
 <script>
     /*-----------利用ip获取定位-----------*/
     var cityName = returnCitySN.cname;
-    alert(cityName);
+    //alert("city:"+cityName);
     //var city;
     var LocationLength;
     for (var i = 0; i < cityName.length; i++) {
@@ -237,12 +237,12 @@
     }else{
         obj = cityName.substring(LocationLength+1,cityName.length-1);
     }
-    alert(obj);
+    //alert("area:"+obj);
     /*------------------end---------------*/
 
     var AreaData = new Array();
     AreaData[0] = ["东城区","西城区","朝阳区","丰台区","石景山区","海淀区","顺义区","通州区","大兴区","房山区","门头沟区","昌平区","平谷区","密云区","怀柔区","延庆区"];
-    AreaData[1] = ["浦东新区","徐汇区","长宁区","普陀区","闸北区","虹口区","杨浦区","黄浦区","卢湾区","静安区","宝山区","闵行区","嘉定区","金山区","松江区","青浦区","奉贤区","南汇区"];
+    AreaData[1] = ["浦东区","徐汇区","长宁区","普陀区","闸北区","虹口区","杨浦区","黄浦区","卢湾区","静安区","宝山区","闵行区","嘉定区","金山区","松江区","青浦区","奉贤区","南汇区"];
     AreaData[2] = ["罗湖区","福田区","南山区","盐田区","龙岗区","宝安区","光明新区","坪山新区"];
     AreaData[3] = ["荔湾区","越秀区","海珠区","天河区","白云区","黄埔区","番禺区","花都区","萝岗区","南沙区","增城区","从化区"];
     AreaData[4] = ["万州区","黔江区","涪陵区","渝中区","大渡口区","江北区","沙坪坝区","九龙坡区","南岸区","北碚区","渝北区","巴南区","长寿区","江津区","合川区","永川区","南川区","大足区","铜梁区","璧山区"];
@@ -250,17 +250,19 @@
     AreaData[6] = ["西湖区","上城区","下城区","江干区","拱墅区","滨江区","富阳区","萧山区","余杭区"];
     AreaData[7] = ["武昌区","青山区","洪山区","江岸区","江汉区","桥口区","汉阳区"];
     var AreaDataVAlue = "";
+
     $(document).ready(function() {
         var area;
 
         /*------------设置下拉框的默认值-----------*/
-        var options = document.getElementById("Any").options;
+        var options = document.getElementById("city").options;
         for(var t= 0; t < options.length;t++){
             if (options[t].value == obj){
                 options[t].selected = true;
                 area = t;
                 //设置级联下拉框的值
                 //alert(AreaData[t].length);
+                AreaDataVAlue +="<option>---请选择---</option>";
                 for (var y = 0; y < AreaData[t].length ;y++)
                 {
                     AreaDataVAlue += "<option value='"+AreaData[t][y]+"'>"+AreaData[t][y]+"</option>";
@@ -280,11 +282,12 @@
         var textvalue1 = text1.options[index1].value;
         /*InitArea未用到，textvalue1*/
       //  {city:obj}
+        //alert("city:"+cityName+"area:"+obj);
         $.ajax({
             url : "/house/getHouseInformation",//请求地址
             dataType : 'json',//数据格式
             type : "post",//请求方式
-            data :"",//数据请求发送，从searchform中提取数据
+            data :{"city":obj},//数据请求发送，从searchform中提取数据
             async : false,//是否异步请求
             success : function(msg) {
                     if (msg.status == 1) {
@@ -295,12 +298,13 @@
                         var value="";
                         $.each(data, function (num) {
                             value = "<div class='col-md-4 col-sm-6' style='margin-top: 15px'><div class='single-featured-properties'><div class='properties-image'>"
-                            +"<a href='#'><img src='images/houseImages/"+ImageName[num]+"' width='2000' height='1000'></a></div><div class='sale-tag'><p>For Rent</p></div>"
+                            +"<a href='#'><img src='images/houseImages/"+ImageName[num]+"' style='width:368px;height:260px'></a></div><div class='sale-tag'><p>For Rent</p></div>"
                             +"<div class='properties-content'><h3><a href='#'>"+data[num].empty+"</a></h3><p><i class='fa fa-map-marker'></i>"+data[num].city+"  "+data[num].area+"</p>"
                             +"<div class='price-detail'><p class='price-range pull-left'>$"+data[num].price+"</p><a href='javascript:void(0)' onclick='tranforID("+data[num].id+")' class='price-detail pull-right'>预定<i class='fa fa-angle-right'></i></a>"
                             +"</div></div></div>";
 
                             $("#displaybody").append(value);
+                            //alert(num);
                         })
 
                         //value="";
@@ -336,16 +340,17 @@
 
   //级联下拉框的方法
   function ChangeArea(obj){
-      alert(123);
+      //alert(123);
       //var  = document.getElementsById("Any").value;
-      alert(obj);
+      //alert(obj);
       var data ="";
-      var options = document.getElementById("Any").options;
+      var options = document.getElementById("city").options;
       for(var t= 0; t < options.length;t++){
           if (options[t].value == obj){
               //alert(options[t].value);
               options[t].selected = true;
               //设置级联下拉框的值
+              data +="<option>---请选择---</option>";
               for (var y = 0; y < AreaData[t].length ;y++)
               {
                   data += "<option value='"+AreaData[t][y]+"'>"+AreaData[t][y]+"</option>";
@@ -357,28 +362,37 @@
   }
 
   function getInformation(){
-        alert(3322);
+      var data1;
+
       /*获取city的选中值*/
       var text0 = document.getElementById("city");
-      var index0 = text.selectedIndex;
-      var textvalue0 = text.options[index0].value;
+      var index0 = text0.selectedIndex;
+      var textvalue0 = text0.options[index0].value;
 
       /*获取id=area的选中值*/
       var text = document.getElementById("area");
       var index = text.selectedIndex;
-      var textvalue = text.options[index1].value;
+      var textvalue = text.options[index].value;
 
       /*获取类型type的选中值*/
       var text1 = document.getElementById("type");
-      var index1 = text.selectedIndex;
-      var textvalue1 = text.options[index2].value;
+      var index1 = text1.selectedIndex;
+      var textvalue1 = text1.options[index1].value;
 
+      if(textvalue == "---请选择---"){
+         data1 = {"city":textvalue0,"officetype":textvalue1};
+      }else{
+          data1 = {"city":textvalue0,"area":textvalue,"officetype":textvalue1};
+      }
+      //alert(textvalue0);
+      //alert(textvalue);
+      //alert(textvalue1);
       var value ="";
       $.ajax({
           url : "/house/getHouseInformation",//请求地址
           dataType : 'json',//数据格式
           type : "post",//请求方式
-          data :{city:textvalue0,area:textvalue,officetype:textvalue1},//数据请求发送，从searchform中提取数据
+          data :data1,//数据请求发送，从searchform中提取数据
           async : false,//是否异步请求
           success : function(msg) {
               if (msg.status == 1) {
@@ -389,7 +403,7 @@
                   var value="";
                   $.each(data, function (num) {
                       value = "<div class='col-md-4 col-sm-6' style='margin-top: 15px'><div class='single-featured-properties'><div class='properties-image'>"
-                          +"<a href='#'><img src='images/houseImages/"+ImageName[num]+"' alt=''></a></div><div class='sale-tag'><p>For Rent</p></div>"
+                          +"<a href='#'><img src='images/houseImages/"+ImageName[num]+"' style='width:368px;height:260px'></a></div><div class='sale-tag'><p>For Rent</p></div>"
                           +"<div class='properties-content'><h3><a href='#'>"+data[num].empty+"</a></h3><p><i class='fa fa-map-marker'></i>"+data[num].city+"  "+data[num].area+"</p>"
                           +"<div class='price-detail'><p class='price-range pull-left'>$"+data[num].price+"</p><a href='javascript:void(0)' onclick='tranforID("+data[num].id+")' class='price-detail pull-right'>预定<i class='fa fa-angle-right'></i></a>"
                           +"</div></div></div>";
@@ -397,16 +411,16 @@
                       $("#displaybody").append(value);
                   })
 
-                  //value="";
+                  //alert(3322);
               }
-              /*跳转到登录页面,重新登录*/
-              /*window.location.href="";*/
+
           },
       })
   }
 
+  //根据city来获取数据
     function cityInformation(value){
-        alert(value);
+        //alert(value);
         $.ajax({
             url : "/house/getHouseInformation",//请求地址
             dataType : 'json',//数据格式
@@ -423,7 +437,7 @@
                     var value="";
                     $.each(data, function (num) {
                         value = "<div class='col-md-4 col-sm-6' style='margin-top: 15px'><div class='single-featured-properties'><div class='properties-image'>"
-                            +"<a href='#'><img src='images/houseImages/"+ImageName[num]+"' alt=''></a></div><div class='sale-tag'><p>For Rent</p></div>"
+                            +"<a href='#'><img src='images/houseImages/"+ImageName[num]+"' style='width:368px;height:260px'></a></div><div class='sale-tag'><p>For Rent</p></div>"
                             +"<div class='properties-content'><h3><a href='#'>"+data[num].empty+"</a></h3><p><i class='fa fa-map-marker'></i>"+data[num].city+"  "+data[num].area+"</p>"
                             +"<div class='price-detail'><p class='price-range pull-left'>$"+data[num].price+"</p><a href='javascript:void(0)' onclick='tranforID("+data[num].id+")' class='price-detail pull-right'>预定<i class='fa fa-angle-right'></i></a>"
                             +"</div></div></div>";
@@ -440,7 +454,7 @@
     }
 
     function TypeInformation(value){
-        alert(value);
+        //alert(value);
         $.ajax({
             url : "/house/getHouseInformation",//请求地址
             dataType : 'json',//数据格式
@@ -457,7 +471,7 @@
                     var value="";
                     $.each(data, function (num) {
                         value = "<div class='col-md-4 col-sm-6' style='margin-top: 15px'><div class='single-featured-properties'><div class='properties-image'>"
-                            +"<a href='#'><img src='images/houseImages/"+ImageName[num]+"' alt=''></a></div><div class='sale-tag'><p>For Rent</p></div>"
+                            +"<a href='#'><img src='images/houseImages/"+ImageName[num]+"' style='width:368px;height:260px'></a></div><div class='sale-tag'><p>For Rent</p></div>"
                             +"<div class='properties-content'><h3><a href='#'>"+data[num].empty+"</a></h3><p><i class='fa fa-map-marker'></i>"+data[num].city+"  "+data[num].area+"</p>"
                             +"<div class='price-detail'><p class='price-range pull-left'>$"+data[num].price+"</p><a href='javascript:void(0)' onclick='tranforID("+data[num].id+")' class='price-detail pull-right'>预定<i class='fa fa-angle-right'></i></a>"
                             +"</div></div></div>";
@@ -484,10 +498,44 @@
           success: function (msg) {
               if (msg.status == 1){
                   window.location.href = "userManage.html";
-              }else{
+              }else if (msg.status == -1) {
                   window.location.href = "administrator.html";
+              }else if (msg.status == -3) {
+                  alert("请先登录！");
+                  window.location.href = "login.html";
               }
           }
+      })
+  }
+
+  function ViewAll() {
+      $.ajax({
+          url : "/house/getHouseInformation",//请求地址
+          dataType : 'json',//数据格式
+          type : "post",//请求方式
+          data :"",//数据请求发送，从searchform中提取数据
+          async : false,//是否异步请求
+          success : function(msg) {
+              if (msg.status == 1) {
+                  var data = eval(msg.list);
+                  var ImageName = eval(msg.listImage);
+                  $("#displaybody").empty();
+                  var count = 0;
+                  var value="";
+                  $.each(data, function (num) {
+                      value = "<div class='col-md-4 col-sm-6' style='margin-top: 15px'><div class='single-featured-properties'><div class='properties-image'>"
+                          +"<a href='#'><img src='images/houseImages/"+ImageName[num]+"' style='width:368px;height:260px'></a></div><div class='sale-tag'><p>For Rent</p></div>"
+                          +"<div class='properties-content'><h3><a href='#'>"+data[num].empty+"</a></h3><p><i class='fa fa-map-marker'></i>"+data[num].city+"  "+data[num].area+"</p>"
+                          +"<div class='price-detail'><p class='price-range pull-left'>$"+data[num].price+"</p><a href='javascript:void(0)' onclick='tranforID("+data[num].id+")' class='price-detail pull-right'>预定<i class='fa fa-angle-right'></i></a>"
+                          +"</div></div></div>";
+
+                      $("#displaybody").append(value);
+                  })
+
+
+              }
+
+          },
       })
   }
 </script>

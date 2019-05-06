@@ -6,6 +6,8 @@ import com.example.wework.service.userService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class userServiceIMPL implements userService {
 
@@ -30,5 +32,15 @@ public class userServiceIMPL implements userService {
     @Override
     public int updateByPrimaryKey(user_Customer record) {
         return userCustomerMapper.updateByPrimaryKey(record);
+    }
+
+    @Override
+    public List<user_Customer> selectAll() {
+        return userCustomerMapper.selectAll();
+    }
+
+    @Override
+    public int deleteByID(int id) {
+        return userCustomerMapper.deleteByID(id);
     }
 }

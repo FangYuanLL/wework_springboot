@@ -35,6 +35,17 @@
     where account = #{account,jdbcType=VARCHAR}
     and password = #{password,jdbcType=VARCHAR}
   </select>
+
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from user_customer
+  </select>
+
+  <delete id="deleteByID" parameterType="java.lang.Integer">
+    delete from user_customer
+     where id = #{id,jdbcType=INTEGER}
+  </delete>
   <delete id="deleteByPrimaryKey" parameterType="com.example.wework.model.user_CustomerKey" >
     delete from user_customer
     where id = #{id,jdbcType=INTEGER}

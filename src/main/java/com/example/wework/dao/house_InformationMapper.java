@@ -22,6 +22,8 @@ public interface house_InformationMapper {
     List<house_Information> getHouseInformationByLandlordID(int landlordid);
 
     List<house_Information> getUnCheckHouse( String status);
+
+    int updateHouseStatus(int id);
     /*end*/
 
     int updateByPrimaryKeySelective(house_Information record);

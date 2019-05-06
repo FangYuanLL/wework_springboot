@@ -35,18 +35,20 @@
                         <th class="s-amount" style="font-size: 20px">数量<hr/></th>
                         <th class="s-amount" style="font-size: 20px">类型<hr/></th>
                         <th class="s-title" style="font-size: 20px">预定时间<hr/></th>
+                        <th class="s-title" style="font-size: 20px">开始时间<hr/></th>
+                        <th class="s-title" style="font-size: 20px">结束时间<hr/></th>
                         <th class="s-total" style="font-size: 20px">价格(￥)<hr/></th>
                         <th class="s-total" style="font-size: 20px">定金(￥)<hr/></th>
                     </tr>
                     </thead>
 
-                    <tbody data-spm="3" class="J_Shop" id="tddata">
-                    <tr class="first"><td colspan="7"></td></tr>
+                    <tbody data-spm="4" class="J_Shop" id="tddata">
+                    <tr class="first"><td colspan="10"></td></tr>
                     <!--信息填充处-->
                     </tbody>
                     <tfoot>
                     <tr>
-                        <td colspan="7">
+                        <td colspan="10">
                             <div class="order-go" data-spm="4">
                                 <div class="J_AddressConfirm address-confirm">
                                     <div class="kd-popup pop-back" style="margin-bottom: 40px;">
@@ -101,6 +103,10 @@
 
                     businessID = business.id;
 
+                  var startdate = new Date(business.startTime.replace(/-/,"/"));
+                  var enddate = new Date(business.endTime.replace(/-/,"/"));
+                  var day = (enddate.getTime() - startdate.getTime() )/(1000*60*60*24);
+
                     var value = "<tr class=\"item\" data-pointRate=\"0\">\n" +
                         "       <td class=\"s-title\">\n" +
                         "         <a href=\"#\" target=\"_blank\" style=\"font-size: 20px\">"+house.empty+"</span></a>\n" +
@@ -121,8 +127,18 @@
                         "           <em class=\"style-normal-bold-red J_ItemTotal \" style=\"font-size: 20px\">"+business.date+"</em>\n" +
                         "         </span>\n" +
                         "       </td>\n" +
+                        "       <td class=\"s-total\"> \n" +
+                        "         <span class='price '>\n" +
+                        "           <em class=\"style-normal-bold-red J_ItemTotal \" style=\"font-size: 20px\">"+business.startTime+"</em>\n" +
+                        "         </span>\n" +
+                        "       </td>\n" +
+                        "       <td class=\"s-total\"> \n" +
+                        "         <span class='price '>\n" +
+                        "           <em class=\"style-normal-bold-red J_ItemTotal \" style=\"font-size: 20px\">"+business.endTime+"</em>\n" +
+                        "         </span>\n" +
+                        "       </td>\n" +
                         "       <td class=\"s-agio\">\n" +
-                        "           <div class=\"J_Promotion promotion\" data-point-url=\"\" style=\"font-size: 20px\">"+house.price*business.number+"</div>\n" +
+                        "           <div class=\"J_Promotion promotion\" data-point-url=\"\" style=\"font-size: 20px\">"+house.price*business.number*day+"</div>\n" +
                         "       </td>\n" +
                         "       <td class=\"s-agio\">\n" +
                         "           <div class=\"J_Promotion promotion\" data-point-url=\"\" style=\"font-size: 20px\">"+house.prepayment*business.number+"</div>\n" +
@@ -130,7 +146,7 @@
                         "    </tr>\n" +
                         "    \n" +
                         "    <tr class=\"shop-total blue-line\">\n" +
-                        "     <td colspan=\"7\" style=\"font-size:20px\">合计：\n" +
+                        "     <td colspan=\"10\" style=\"font-size:20px\">合计：\n" +
                         "       <span class='price g_price '>\n" +
                         "        <span>&yen;</span><em class=\"style-middle-bold-red J_ShopTotal\" style=\"font-size:20px\" >"+house.prepayment*business.number+"</em>\n" +
                         "      </span>\n" +
@@ -139,9 +155,11 @@
 
                     $("#tddata").append(value);
 
+
+
                     var userValue = "<div class=\"bd\" style='text-align:left'>\n" +
                         "        <div class=\"point-in\" style='text-align:left'>    \n" +
-                        "          <em  style=\"font-size: 20px\">实付款：</em></span><em   id=\"J_ActualFee\" style=\"font-size:20px\" >630.00</em>\n" +
+                        "          <em  style=\"font-size: 20px\">实付款：</em></span><em   id=\"J_ActualFee\" style=\"font-size:20px\" >"+house.prepayment+"</em>\n" +
                         "          </span>\n" +
                         /*"        </div>\n" +*/
                         "          <ul style='text-align:left'>\n" +

@@ -67,6 +67,7 @@
         </div>
         <div class="meun-title" style="font-size: 25px">功能菜单</div>
         <div class="meun-item meun-item-active" href="#sour" aria-controls="sour" role="tab" data-toggle="tab" style="font-size: 20px"><img src="images/icon_house_grey.png">未认证房屋</div>
+        <div class="meun-item" href="#char" aria-controls="char" role="tab" data-toggle="tab" style="font-size: 20px"><img src="images/icon_chara_grey.png">用户管理</div>
 
     </div>
     <!-- 右侧具体内容栏目 -->
@@ -79,7 +80,8 @@
             <!-- 交易记录模块 -->
             <div role="tabpanel" class="tab-pane active" id="sour">
                 <div class="check-div form-inline" align="right">
-                    <button class="btn btn-yellow btn-xs" data-toggle="modal" data-target="#addSource">退出登录</button>
+                    <button class="btn btn-yellow btn-xs"  style="margin-top: 10px;font-size: 20px" onclick="reIndex()">返回首页</button>
+                    <button class="btn btn-yellow btn-xs"  style="margin-top: 10px;font-size: 20px" onclick="ExitLogin()">退出登录</button>
                 </div>
                 <div class="data-div">
                     <div class="row tableHeader"  style="font-size: 20px">
@@ -115,63 +117,6 @@
                     </div>
                 </div>
 
-                <!--修改资源弹出窗口-->
-                <div class="modal fade" id="changeSource" role="dialog" aria-labelledby="gridSystemModalLabel">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="gridSystemModalLabel">修改资源</h4>
-                            </div>
-                            <div class="modal-body">
-                                <div class="container-fluid">
-                                    <form class="form-horizontal">
-                                        <div class="form-group ">
-                                            <label for="sName" class="col-xs-3 control-label">名称：</label>
-                                            <div class="col-xs-8 ">
-                                                <input type="email" class="form-control input-sm duiqi" id="sName" placeholder="">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="sLink" class="col-xs-3 control-label">链接：</label>
-                                            <div class="col-xs-8 ">
-                                                <input type="" class="form-control input-sm duiqi" id="sLink" placeholder="">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="sOrd" class="col-xs-3 control-label">排序：</label>
-                                            <div class="col-xs-8">
-                                                <input type="" class="form-control input-sm duiqi" id="sOrd" placeholder="">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="sKnot" class="col-xs-3 control-label">父节点：</label>
-                                            <div class="col-xs-8">
-                                                <input type="" class="form-control input-sm duiqi" id="sKnot" placeholder="">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="exampleInput1" class="col-xs-3 control-label">资源类型：</label>
-                                            <div class="col-xs-8">
-                                                <label class="control-label" for="anniu">
-                                                    <input type="radio" name="leixing" id="anniu">菜单</label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                <label class="control-label" for="meun">
-                                                    <input type="radio" name="leixing" id="meun"> 按钮</label>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-xs btn-white" data-dismiss="modal">取 消</button>
-                                <button type="button" class="btn btn-xs btn-green">保 存</button>
-                            </div>
-                        </div>
-                        <!-- /.modal-content -->
-                    </div>
-                    <!-- /.modal-dialog -->
-                </div>
-                <!-- /.modal -->
                 <!--弹出删除资源警告窗口-->
                 <div class="modal fade" id="deleteSource" role="dialog" aria-labelledby="gridSystemModalLabel">
                     <div class="modal-dialog" role="document">
@@ -187,6 +132,63 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-xs btn-white" data-dismiss="modal" onclick="HtmlRefresh()">确定</button>
+                            </div>
+                        </div>
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+                <!-- /.modal -->
+            </div>
+            <!-- 房屋管理模块 -->
+            <div role="tabpanel" class="tab-pane" id="char">
+
+                <div class="check-div form-inline" align="right">
+                    <button class="btn btn-yellow btn-xs"  style="margin-top: 10px;font-size: 20px" onclick="reIndex()">返回首页</button>
+                    <button class="btn btn-yellow btn-xs"  style="margin-top: 10px;font-size: 20px" onclick="ExitLogin()">退出登录</button>
+                </div>
+                <div class="data-div">
+                    <div class="row tableHeader" style="font-size: 25px">
+                        <div class="col-xs-1 ">
+                            编号
+                        </div>
+                        <div class="col-xs-1 ">
+                            账号
+                        </div>
+                        <div class="col-xs-2">
+                            名字
+                        </div>
+                        <div class="col-xs-2 ">
+                            电话
+                        </div>
+                        <div class="col-xs-2 ">
+                            邮箱
+                        </div>
+                        <div class="col-xs-1 ">
+                            操作
+                        </div>
+                    </div>
+                    <div class="tablebody" id="userManage" >
+
+                    </div>
+
+                </div>
+                <!--弹出删除警告窗口-->
+                <div class="modal fade" id="deleteChar" role="dialog" aria-labelledby="gridSystemModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="">提示</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="container-fluid">
+                                    确定要删除该用户？删除后不可恢复！
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-xs btn-white" data-dismiss="modal">取 消</button>
+                                <button type="button" class="btn btn-xs btn-danger" onclick="DeleteUser()">删 除</button>
                             </div>
                         </div>
                         <!-- /.modal-content -->
@@ -214,7 +216,7 @@
                     var houselist = eval(msg.list);
                     var userlist = eval(msg.userList);
                     $.each(houselist, function (num) {
-                        var value = "<div class=\"row\">\n" +
+                        var value = "<div class=\"row\" style=\"font-size: 13px\">\n" +
                             "<div class=\"col-lg-1 col-md-1 col-sm-1 col-xs-1 levl3 \">\n" +
                             ""+userlist[num].name+"</div>\n" +
                             "<div class=\"col-lg-2 col-md-2 col-sm-2 col-xs-2  levl3\">\n" +
@@ -227,9 +229,9 @@
                             "<div class=\"col-lg-1 col-md-1 col-sm-1 col-xs-1 levl3\">\n" +
                             ""+userlist[num].phonenumber+"</div>\n" +
                             "<div class=\"col-lg-1 col-md-1 col-sm-1 col-xs-1 levl3\">\n" +
-                            ""+userlist[num].empty+"</div>\n" +
+                            ""+userlist[num].idcard+"</div>\n" +
                             "<div class=\"col-lg-1 col-md-1 col-sm-1 col-xs-1\">\n" +
-                            "<button class=\"btn btn-success btn-xs\" data-toggle=\"modal\" data-target=\"#deleteSource\">认证通过</button>\n" +
+                            "<button class=\"btn btn-success btn-xs\" data-toggle=\"modal\" data-target=\"#deleteSource\" onclick='HouseStatus("+houselist[num].id+")'>认证通过</button>\n" +
                             "<button class=\"btn btn-danger btn-xs\" data-toggle=\"modal\" onclick='GetDetails("+houselist[num].id+")'>查看</button>\n" +
                             "</div></div>";
                         $("#collapseAccount").append(value);
@@ -240,10 +242,53 @@
                 }
             }
         })
-    })
 
+        $.ajax({
+            url: "/User/selectAllUser",
+            dataType: 'json',
+            type: "post",
+            data: "",
+            async: false,
+            success: function (msg) {
+                if (msg.status == 1){
+                    $("#userManage").empty();
+                    var userlist = eval(msg.userlist);
+                    $.each(userlist, function (num) {
+                        var uservalue = "<div class=\"row\"  style=\"font-size: 13px\" >"+
+                            "<div class=\"col-xs-1\">"+(num+1)+"</div>\n" +
+                            "<div class=\"col-xs-1\">"+userlist[num].account+"</div>\n" +
+                            "<div class=\"col-xs-2\">"+userlist[num].name+"</div>\n" +
+                            "<div class=\"col-xs-2\">"+userlist[num].phonenumber+"</div>\n" +
+                            "<div class=\"col-xs-2\">"+userlist[num].idcard+"</div>\n" +
+                            "<div class=\"col-xs-1\">\n" +
+                            "<button class=\"btn btn-danger btn-xs\" data-toggle=\"modal\" data-target=\"#deleteChar\" onclick='DeleteUserID("+userlist[num].id+")'>删除</button>\n" +
+                            "</div></div>";
+                        $("#userManage").append(uservalue);
+                        uservalue = "";
+                    })
+                }
+            }
+        })
+
+
+    })
+    var houseStatus ;
+    function HouseStatus(id){
+        houseStatus = id;
+    }
     function HtmlRefresh(){
-        window.location.reload();
+        $.ajax({
+            url: "/house/updatehousestatus",
+            dataType: 'json',
+            type: "post",
+            data: {"id": houseStatus},
+            async: false,
+            success: function (msg) {
+                if (msg.status == 1){
+                    window.location.reload();
+                }
+            }
+        })
     }
 
     function GetDetails(id){
@@ -258,6 +303,48 @@
                     window.location.href="http://localhost:8080/details.html";
                 }else{
                     alert("id传输有误！")
+                }
+            }
+        })
+    }
+
+    var userID = -1;
+    function DeleteUserID(id){
+        userID = id;
+    }
+    function DeleteUser() {
+        $.ajax({
+            url: "/User/deleteByID",
+            dataType: 'json',
+            type: "post",
+            data: {"id":userID},
+            async: false,
+            success: function (msg) {
+                if (msg.status == 1){
+                    window.location.href = "";
+                }else{
+                    alert("删除失败！")
+                }
+            }
+        })
+    }
+
+    function reIndex(){
+        window.location.href = "index.html";
+    }
+
+    function ExitLogin(){
+        $.ajax({
+            url: "/Landlord/exit",
+            dataType: 'json',
+            type: "post",
+            data: "",
+            async: false,
+            success: function (msg) {
+                if (msg.status == 1){
+                    window.location.href = "index.html"
+                } else{
+                    alert("exit有误！");
                 }
             }
         })

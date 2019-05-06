@@ -399,8 +399,8 @@ public class HouseController {
         user = LoginCheck.proveMe(request);
         /*------end------*/
         List <house_Information> list = null;
-        //list = houseService.getHouseInformationByLandlordID(user.getId());//获取登录用户的全部房源
-        list = houseService.getHouseInformationByLandlordID(1);
+        list = houseService.getHouseInformationByLandlordID(user.getId());//获取登录用户的全部房源
+        //list = houseService.getHouseInformationByLandlordID(1);
         if (list!=null){
             map.put("status",1);
             map.put("houselist",list);
@@ -411,6 +411,7 @@ public class HouseController {
         return map;
     }
 
+    //修改房屋信息
     @ResponseBody
     @RequestMapping(value="/SaveInformation")
     public Object SaveInformation(HttpServletRequest request){
@@ -451,6 +452,24 @@ public class HouseController {
 
         int flag = houseService.deleteByPrimaryKey(houseID);
         if (flag > 0){
+            map.put("status",1);
+        }else{
+            map.put("status",-1);
+        }
+
+        return map;
+    }
+
+    @ResponseBody
+    @RequestMapping(value="/updatehousestatus")
+    public Object updateHouseStatus(HttpServletRequest request) {
+        Map map = new HashMap();
+
+        int houseid = Integer.valueOf(request.getParameter("id"));
+
+        int flag = houseService.updateHouseStatus(houseid);
+
+        if (flag>0){
             map.put("status",1);
         }else{
             map.put("status",-1);

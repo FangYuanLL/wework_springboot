@@ -21,4 +21,6 @@ public interface HouseService {
 
     int deleteByPrimaryKey(Integer id);
 
+    int updateHouseStatus(int id);
+
 }

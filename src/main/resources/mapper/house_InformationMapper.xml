@@ -87,6 +87,11 @@
     where status = #{status,jdbcType=VARCHAR}
   </select>
 
+  <update id="updateHouseStatus" parameterType="java.lang.Integer" >
+    update house_information
+    set status = 1
+    where id = #{id,jdbcType=INTEGER}
+  </update>
   <!--end-->
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
