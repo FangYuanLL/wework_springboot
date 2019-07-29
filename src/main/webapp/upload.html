@@ -71,12 +71,12 @@
             </div>
             <div>
                 <label style="font-size:28px;" >&nbsp;&nbsp;&nbsp;城市：</label>
-                <input style="width:200px;height:40px;margin-top:10px;padding:0px 15px;border:1px solid rgba(0, 0, 0, .15);border-radius:6px;color:#000000;letter-spacing:2px;font-size:16px;" type="text" id="city" name="city" onblur="" />
+                <input style="width:200px;height:40px;margin-top:10px;padding:0px 15px;border:1px solid rgba(0, 0, 0, .15);border-radius:6px;color:#000000;letter-spacing:2px;font-size:16px;" type="text" id="city" name="city" onblur="" placeholder="北京" />
                 <span id="citycheck" name="citycheck" style="color:red;display: none">*</span>
             </div>
             <div>
                 <label style="font-size:28px;">&nbsp;&nbsp;&nbsp;城区：</label>
-                <input type="text" id="area" name="area" onblur="" />
+                <input type="text" id="area" name="area" onblur="" placeholder="海淀区"/>
                 <span id="areacheck" name="areacheck" style="color:red;display: none">*</span>
             </div>
             <div>
@@ -232,77 +232,10 @@
 </section>
 </body>
 <script>
-    function cityInformation(value){
-        alert(value);
-        $.ajax({
-            url : "/house/getHouseInformation",//请求地址
-            dataType : 'json',//数据格式
-            type : "post",//请求方式
-            data :{city:value},//数据请求发送，从searchform中提取数据
-            async : false,//是否异步请求
-            success : function(msg) {
-                if (msg.status == 1) {
-                    var data = eval(msg.list);
-                    var ImageName = eval(msg.listImage);
-                    /*清空之前append的内容*/
-                    $("#displaybody").empty();
-                    var count = 0;
-                    var value="";
-                    $.each(data, function (num) {
-                        value = "<div class='col-md-4 col-sm-6' style='margin-top: 15px'><div class='single-featured-properties'><div class='properties-image'>"
-                            +"<a href='#'><img src='images/houseImages/"+ImageName[num]+"' alt=''></a></div><div class='sale-tag'><p>For Rent</p></div>"
-                            +"<div class='properties-content'><h3><a href='#'>"+data[num].empty+"</a></h3><p><i class='fa fa-map-marker'></i>"+data[num].city+"  "+data[num].area+"</p>"
-                            +"<div class='price-detail'><p class='price-range pull-left'>$"+data[num].price+"</p><a href='javascript:void(0)' onclick='tranforID("+data[num].id+")' class='price-detail pull-right'>预定<i class='fa fa-angle-right'></i></a>"
-                            +"</div></div></div>";
-
-                        $("#displaybody").append(value);
-                    })
-
-                    //value="";
-                }
-                /*跳转到登录页面,重新登录*/
-                /*window.location.href="";*/
-            },
-        })
-    }
-
-    function TypeInformation(value){
-        alert(value);
-        $.ajax({
-            url : "/house/getHouseInformation",//请求地址
-            dataType : 'json',//数据格式
-            type : "post",//请求方式
-            data :{officetype:value},//数据请求发送，从searchform中提取数据
-            async : false,//是否异步请求
-            success : function(msg) {
-                if (msg.status == 1) {
-                    var data = eval(msg.list);
-                    var ImageName = eval(msg.listImage);
-                    /*清空之前append的内容*/
-                    $("#displaybody").empty();
-                    var count = 0;
-                    var value="";
-                    $.each(data, function (num) {
-                        value = "<div class='col-md-4 col-sm-6' style='margin-top: 15px'><div class='single-featured-properties'><div class='properties-image'>"
-                            +"<a href='#'><img src='images/houseImages/"+ImageName[num]+"' alt=''></a></div><div class='sale-tag'><p>For Rent</p></div>"
-                            +"<div class='properties-content'><h3><a href='#'>"+data[num].empty+"</a></h3><p><i class='fa fa-map-marker'></i>"+data[num].city+"  "+data[num].area+"</p>"
-                            +"<div class='price-detail'><p class='price-range pull-left'>$"+data[num].price+"</p><a href='javascript:void(0)' onclick='tranforID("+data[num].id+")' class='price-detail pull-right'>预定<i class='fa fa-angle-right'></i></a>"
-                            +"</div></div></div>";
-
-                        $("#displaybody").append(value);
-                    })
-
-                    //value="";
-                }
-                /*跳转到登录页面,重新登录*/
-                /*window.location.href="";*/
-            },
-        })
-    }
 
     function DisplayNumberFrame(value){
         if (value == '合租') {
-            document.getElementById("officenumber").style.display = "inline-block";
+            document.getElementById("officenumber").style.display = "none";
         }else {
             document.getElementById("officenumber").style.display = "none";
         }

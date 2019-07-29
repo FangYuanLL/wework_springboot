@@ -43,4 +43,9 @@ public class userServiceIMPL implements userService {
     public int deleteByID(int id) {
         return userCustomerMapper.deleteByID(id);
     }
+
+    @Override
+    public int updateEmpty(int id) {
+        return userCustomerMapper.updateEmpty(id);
+    }
 }

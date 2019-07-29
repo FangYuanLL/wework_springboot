@@ -33,7 +33,8 @@ public class BusinessController {
 
     @Autowired
     private userService user;
-    //自己预定过的办公室的交易记录
+
+    //我预定的办公室的订单记录
     @ResponseBody
     @RequestMapping(value = "/display")
     public Object selectOrder(HttpServletRequest request){
@@ -62,7 +63,8 @@ public class BusinessController {
 
         return map;
     }
-    //委托的房屋的订单
+
+    //交易订单
     @ResponseBody
     @RequestMapping(value = "/MyHouseOrder")
     public Object MyHouseOrder(HttpServletRequest request){
@@ -91,6 +93,7 @@ public class BusinessController {
         return map;
     }
 
+    //订单的详情
     @ResponseBody
     @RequestMapping(value = "/BusinessDetails")
     public Object BusinessDetails(HttpServletRequest request){
@@ -99,6 +102,7 @@ public class BusinessController {
         user_Customer userCustomer = user.SelectById(business.getCustomerId());
         house_Information houseinformation = houseService.selectByPrimaryKey(business.getHouseId());
         Map map = new HashMap();
+
         if (userCustomer!=null && houseinformation!=null){
             map.put("status",1);
             map.put("business",business);
@@ -111,11 +115,17 @@ public class BusinessController {
         return map;
     }
 
+    //修改订单的状态，是否支付定金的状态
     @ResponseBody
     @RequestMapping(value = "/SetBusinessStatus")
     public Object SetBusinessStatus(HttpServletRequest request){
         int  businessID = Integer.valueOf(request.getParameter("businessid"));
         int flag = businessService.setStatus(businessID);
+
+        Business business = businessService.selectByPrimaryKey(businessID);
+        house_Information house = houseService.selectByPrimaryKey(business.getHouseId());
+        house.setRemainnumber(house.getRemainnumber()-business.getNumber());
+        int tag = houseService.updateByPrimaryKeySelective(house);
         Map map = new HashMap();
         if (flag > 0 ){
             map.put("status",1);
@@ -125,6 +135,31 @@ public class BusinessController {
         return map;
     }
 
+    //确认订单完成，设置房屋的remainnumber
+    @ResponseBody
+    @RequestMapping(value = "/confirmMyOrderById")
+    public Object confirmMyOrderId(HttpServletRequest request){
+        int  businessID = Integer.valueOf(request.getParameter("businessid"));
+        Map map = new HashMap();
+        Business business = businessService.selectByPrimaryKey(businessID);
+        int houseid = business.getHouseId();
+        int number = business.getNumber();
+        house_Information house = houseService.selectByPrimaryKey(houseid);
+        int remainnumber = house.getRemainnumber()+number;
+        int flag = houseService.updateHouseRemainnumber(houseid,remainnumber);
+        int businessflag = businessService.confirmMyOrderId(businessID);
+
+        if (flag>0 && businessflag>0){
+            map.put("status",1);
+        }else {
+            map.put("status",-1);
+        }
+
+
+        return map;
+    }
+
+    //删除对应的订单
     @ResponseBody
     @RequestMapping(value = "/delete")
     public Object DeleteBusiness(HttpServletRequest request){

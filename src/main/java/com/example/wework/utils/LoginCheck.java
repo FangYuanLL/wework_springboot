@@ -35,11 +35,9 @@ public class LoginCheck {
         for(int i=0; cookies!=null && i<cookies.length; i++){
             if("current".equals(cookies[i].getName())){
                 String token = cookies[i].getValue();
-
                 if(token != null) {
                     return token;
                 }
-
             }
         }
         return null;

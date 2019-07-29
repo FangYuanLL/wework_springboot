@@ -28,4 +28,6 @@ public interface user_CustomerMapper {
 
     int deleteByID(int id);
 
+    int updateEmpty(int id);
+
 }

@@ -40,12 +40,19 @@
     select
     <include refid="Base_Column_List" />
     from user_customer
+    where empty = 1
   </select>
 
   <delete id="deleteByID" parameterType="java.lang.Integer">
     delete from user_customer
      where id = #{id,jdbcType=INTEGER}
   </delete>
+
+  <update id="updateEmpty" parameterType="java.lang.Integer">
+    update user_customer
+    set empty = 0
+    where id = #{id,jdbcType=INTEGER}
+  </update>
   <delete id="deleteByPrimaryKey" parameterType="com.example.wework.model.user_CustomerKey" >
     delete from user_customer
     where id = #{id,jdbcType=INTEGER}

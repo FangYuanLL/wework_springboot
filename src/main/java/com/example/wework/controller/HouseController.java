@@ -2,10 +2,7 @@ package com.example.wework.controller;
 
 
 import com.example.wework.model.*;
-import com.example.wework.service.BusinessService;
-import com.example.wework.service.HouseService;
-import com.example.wework.service.ImageService;
-import com.example.wework.service.collectionHouseService;
+import com.example.wework.service.*;
 import com.example.wework.utils.CreateUUID;
 import com.example.wework.utils.JWT;
 import com.example.wework.utils.LoginCheck;
@@ -42,6 +39,13 @@ public class HouseController {
 
     @Autowired
     private BusinessService businessService;
+
+
+    @Autowired
+    private userService userService;
+
+    @Autowired
+    private MailService mailService;
 /*
  * 合租型办公室必须填写多次upload.html页面，每个办公室一条记录，图片与也不一样
  * 这个还没在页面实现
@@ -62,18 +66,19 @@ public class HouseController {
         String address = request.getParameter("address");
         String officetype = request.getParameter("officetype");
         System.out.println("officetype:"+officetype);
+        String  person_number = request.getParameter("person_number");
+        String price = request.getParameter("price");
         String officenumber;
         if(officetype.equals("整租") == true){
             System.out.println("1");
             officenumber = "1";
         }else{
-            officenumber = request.getParameter("officenumber");
+            officenumber = person_number;
             System.out.println("2");
         }
 
         System.out.println("officenumber:"+officenumber);
-        String  person_number = request.getParameter("person_number");
-        String price = request.getParameter("price");
+
         String prepayment = request.getParameter("prepayment");
         String introduce = request.getParameter("introduce");
         //System.out.println(city);
@@ -109,7 +114,7 @@ public class HouseController {
         house.setPrepayment(Integer.parseInt(prepayment));
         house.setIntroduce(introduce);
         house.setStatus("0");//状态0，未审核通过
-        house.setRentornot("出租中");
+        house.setRentornot("1");//状态1，未删除，状态0已删除
 
         /*生成唯一的uuid，在id未生成之前，给图片存储使用*/
         CreateUUID UUID = new CreateUUID();
@@ -284,6 +289,7 @@ public class HouseController {
 
         return map;
     }
+
     //收藏功能
     @ResponseBody
     @RequestMapping(value="/collectionHouse")
@@ -308,6 +314,53 @@ public class HouseController {
         return map;
     }
 
+    //显示收藏的房源的信息
+    @ResponseBody
+    @RequestMapping(value="/displayCollection")
+    public Object displayCollection(HttpServletRequest request){
+        Map map = new HashMap();
+
+        user_Customer user = null;
+        user = LoginCheck.proveMe(request);
+        //System.out.println("user:"+user.getId());
+
+        List<collectionHouse> CollectionList=collectionHouseService.displayCollection(user.getId());
+
+        List<house_Information> HouseList = new ArrayList<house_Information>();
+        for(collectionHouse co:CollectionList){
+            house_Information newHouse = null;
+            newHouse = houseService.selectByPrimaryKey(co.getHouseid());
+            HouseList.add(newHouse);
+        }
+
+        if (HouseList != null){
+            map.put("CollectionList",CollectionList);
+            map.put("houselist",HouseList);
+            map.put("status",1);
+        }else {
+            map.put("status",-1);
+        }
+
+        return map;
+    }
+
+    @ResponseBody
+    @RequestMapping(value="/DeleteCollection")
+    public Object DeleteCollection(HttpServletRequest request){
+        String collectionid = request.getParameter("collectionid");
+        Map map = new HashMap();
+
+        if (collectionid!=null){
+            int deleteid = Integer.valueOf(collectionid);
+            int flag = collectionHouseService.deleteByPrimaryKey(deleteid);
+            map.put("status",1);
+        }else{
+            map.put("status",-1);
+        }
+
+        return map;
+    }
+
     //预定功能
     @ResponseBody
     @RequestMapping(value = "/Order")
@@ -322,18 +375,7 @@ public class HouseController {
         System.out.println("houseid:"+houseid);
 
 
-        //获取用户存储在cookie中的信息
-        /*String token;//获取登录用户记录在cookie的数据
-        Cookie[] cookies = request.getCookies();
-        if (cookies!=null){
-            for (Cookie cookie:cookies){
-                if ((cookie.getName()).equals("userCustomer") == true);
-                token = cookie.getValue();
-                user_Customer user = JWT.unsign(token,user_Customer.class);
-                user1 = user;
-                //System.out.println("cookieValue123:"+user.getId());
-            }
-        }*/
+
         user_Customer user = null;
         user = LoginCheck.proveMe(request);
         System.out.println("user:"+user.getId());
@@ -356,10 +398,14 @@ public class HouseController {
             business.setType(house.getOfficetype());
             business.setPrepayment(house.getPrepayment()+"");
             business.setOrderstatus(0);//0
+            business.setEmpty("未完成");
 
             int flag = businessService.insert(business);
 
-            int remainnumber = house.getRemainnumber()-number;
+
+            //先不能改变remainnumber，如果最后订单没有交付，这个订单不能算成功
+            int remainnumber = house.getRemainnumber();
+            //int remainnumber = house.getRemainnumber()-number;
             house.setRemainnumber(remainnumber);
             System.out.println("111");
 
@@ -424,9 +470,16 @@ public class HouseController {
         house = houseService.selectByPrimaryKey(id);
         if (price !=null){
             int newprice = Integer.valueOf(price);
-            house.setPrice(newprice);
+
             if (newprice < house.getPrice()){
-                //邮件通知模块
+                house.setPrice(newprice);
+                /*发送邮件start*/
+                List<collectionHouse> collectList =  collectionHouseService.selectByHouseID(id);
+                for (collectionHouse collect:collectList){
+                   user_Customer user = userService.SelectById(collect.getUserCustomerid());
+                   mailService.SendMail(user.getIdcard(),house);
+                 }
+               /*发送邮件end*/
             }
         }
         if (prepayment.equals("") == false){
@@ -450,7 +503,9 @@ public class HouseController {
 
         int houseID = Integer.valueOf(request.getParameter("houseID"));
 
-        int flag = houseService.deleteByPrimaryKey(houseID);
+        int flag = houseService.updateRentornot(houseID);//删除操作，更新状态位
+
+        //businessService
         if (flag > 0){
             map.put("status",1);
         }else{

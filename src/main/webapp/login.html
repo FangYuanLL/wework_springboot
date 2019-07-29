@@ -82,17 +82,18 @@
         if(account==""||password==""){
             $("#errorMsg").append("请输入账号密码！");
         }else {
-            var formdata = $("#userLogin").serialize();
+            var formdata = $("#userLogin").serialize();//序列化表单数据
             $.ajax({
-                url: "/User/Login",
-                type: "post",
-                dataType : "json",
-                data: formdata,
-                async : false,
-                success:function(data){
+                url: "/User/Login",//请求的路径
+                type: "post",//请求方式（get or post）
+                dataType : "json",//返回的数据类型
+                data: formdata,//发送到服务器的数据
+                async : false,//发送请求的方式
+                success:function(data){//回调函数，请求成功后，传入返回的数据
                     if (data.status == 1){
                         window.location.href="index.html";
                     }else{
+                        $("#errorMsg").empty();
                         $("#errorMsg").append("输入正确的账号和密码");
                     }
                 }
@@ -101,6 +102,7 @@
     }
     //管理员登录
     function landlordLogin(){
+        //$("#errorMsgL").empty();
         var account = document.getElementById("accountLandlord").value;
         var password = document.getElementById("passwordLandlord").value;
         if(account==""||password==""){
@@ -118,6 +120,7 @@
                         window.location.href="index.html";
                         /*跳转管理员页面*/
                     }else{
+                        $("#errorMsgL").empty();
                         $("#errorMsgL").append("输入正确的账号和密码");
                     }
                 }

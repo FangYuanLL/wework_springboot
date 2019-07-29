@@ -66,6 +66,7 @@
       <if test="status != null" >
         and status = #{status,jdbcType=VARCHAR}
       </if>
+        and  rentornot = 1
     </where>
   </select>
 
@@ -76,6 +77,7 @@
     <include refid="Blob_Column_List" />
     from house_information
     where landlordid = #{landlordid,jdbcType=INTEGER}
+    and  rentornot = 1
   </select>
 
   <select id="getUnCheckHouse" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
@@ -85,11 +87,24 @@
     <include refid="Blob_Column_List" />
     from house_information
     where status = #{status,jdbcType=VARCHAR}
+    and  rentornot = 1
   </select>
 
   <update id="updateHouseStatus" parameterType="java.lang.Integer" >
     update house_information
     set status = 1
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateHouseRemainnumber">
+    update house_information
+    set remainnumber = #{remainnumber,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateRentornot" parameterType="java.lang.Integer">
+    update house_information
+    set rentornot = 0
     where id = #{id,jdbcType=INTEGER}
   </update>
   <!--end-->

@@ -39,18 +39,20 @@ public class UserController {
     public Object userLogin(HttpServletRequest request, HttpServletResponse response){
         String account = request.getParameter("account");
         String password = request.getParameter("password");
-        System.out.println(account+"\n");
-        System.out.println(password+"\n");
+       // System.out.println(account+"\n");
+        //System.out.println(password+"\n");
         Map map = new HashMap();
-        user_Customer user_customer = userService.searchUser(account,password);
-        String token = JWT.sign(user_customer,1L*48L*3600L*1000L);
-        if(user_customer!=null){
+        user_Customer user_customer = userService.searchUser(account,password);//调用service方法，查找对应account和password的记录
+        String token = JWT.sign(user_customer,1L*48L*3600L*1000L);//将用户信息用JWT加密并变成字符串
+        if((user_customer!=null) && (user_customer.getEmpty().equals("1")==true)){//判断是否有这个用户，判断用户是否是被删除的
             map.put("status",1);
+            /*创建cookie存储用户信息并存入response中*/
             Cookie cookie = new Cookie("userCustomer",token);
             cookie.setPath("/");
             cookie.setMaxAge(-1);
             response.addCookie(cookie);
 
+            /*创建cookie存储用户类型并存入response中*/
             Cookie CurrentCookie = new Cookie("current","1");
             CurrentCookie.setPath("/");
             CurrentCookie.setMaxAge(-1);
@@ -103,7 +105,7 @@ public class UserController {
         userCustomer.setName(name);
         userCustomer.setPhonenumber(phonenumber);
         userCustomer.setIdcard(idcard);//电话号码字段
-        //userCustomer.setIdcard(idcard);
+        userCustomer.setEmpty("1");
         //有个邮箱没写进去？？？？？？？页面没写进去
         //flag存储插入操作的返回值
         int flag = userService.insert(userCustomer);
@@ -214,6 +216,21 @@ public class UserController {
 
         return map;
     }
+    //userManage.html页面用户信息的显示
+    @ResponseBody
+    @RequestMapping(value="/DisplayUser")
+    public Object DisplayUser(HttpServletRequest request){
+        Map map = new HashMap();
+        user_Customer user = LoginCheck.proveMe(request);
+        user_Customer newUser = userService.SelectById(user.getId());
+        if (user!=null){
+            map.put("status",1);
+            map.put("user",newUser);
+        }else{
+            map.put("status",-1);
+        }
+        return map;
+    }
 
     @ResponseBody
     @RequestMapping(value="/selectAllUser")
@@ -237,7 +254,7 @@ public class UserController {
         Map map = new HashMap();
         String userid = request.getParameter("id");
         int id = Integer.valueOf(userid);
-        int flag = userService.deleteByID(id);
+        int flag = userService.updateEmpty(id);
         if (flag > 0){
             map.put("status",1);
         }else{

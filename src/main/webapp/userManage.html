@@ -24,7 +24,7 @@
                     $(this).attr("src", items);
                 });
                 var attrObj = $(this).find("img").attr("src");
-                ;
+
                 attrObj = attrObj.replace("_grey.png", ".png");
                 $(this).find("img").attr("src", attrObj);
             });
@@ -67,9 +67,11 @@
             <p id="logoP" style="font-size: 21px"><img id="logo" alt="" src="images/logo.png"><span>后台管理</span></p>
         </div>
         <div class="meun-title" style="font-size: 25px">功能菜单</div>
-        <div class="meun-item meun-item-active" href="#sour" aria-controls="sour" role="tab" data-toggle="tab" style="font-size: 20px"><img src="images/icon_house_grey.png">我的订单</div>
+        <div class="meun-item meun-item-active" href="#sour" aria-controls="sour" role="tab" data-toggle="tab" style="font-size: 20px"><img src="images/icon_house_grey.png">我预定的订单</div>
         <div class="meun-item" href="#char" aria-controls="char" role="tab" data-toggle="tab" style="font-size: 20px"><img src="images/icon_chara_grey.png">房屋管理</div>
-        <div class="meun-item" href="#user" aria-controls="user" role="tab" data-toggle="tab" style="font-size: 20px"><img src="images/icon_user_grey.png">交易记录</div>
+        <div class="meun-item" href="#user" aria-controls="user" role="tab" data-toggle="tab" style="font-size: 20px"><img src="images/icon_user_grey.png">交易订单</div>
+        <div class="meun-item" href="#collection" aria-controls="collection" role="tab" data-toggle="tab" style="font-size: 20px"><img src="images/icon_house_grey.png">我的收藏</div>
+        <div class="meun-item" href="#displayUser" aria-controls="displayUser" role="tab" data-toggle="tab" style="font-size: 20px"><img src="images/icon_chara_grey.png">用户信息</div>
         <div class="meun-item" href="#chan" aria-controls="chan" role="tab" data-toggle="tab" style="font-size: 20px"><img src="images/icon_change_grey.png">修改信息</div>
     </div>
     <!-- 右侧具体内容栏目 -->
@@ -79,7 +81,7 @@
         </a>
         <!-- Tab panes -->
         <div class="tab-content">
-            <!-- 交易记录模块 -->
+            <!-- 我预定的订单模块 -->
             <div role="tabpanel" class="tab-pane active" id="sour">
                 <div class="check-div form-inline" align="right">
                     <button class="btn btn-yellow btn-xs"  style="margin-top: 10px;font-size: 20px" onclick="reIndex()">返回首页</button>
@@ -93,7 +95,7 @@
                         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                             订单日期
                         </div>
-                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
                             开始时间
                         </div>
                         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
@@ -107,6 +109,9 @@
                         </div>
                         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
                             预付定金
+                        </div>
+                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                            状态
                         </div>
                         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
                             操作
@@ -352,6 +357,74 @@
                 <!-- /.modal -->
 
             </div>
+
+            <!--收藏模块-->
+            <div role="tabpanel" class="tab-pane" id="collection">
+
+                <div class="check-div form-inline" align="right">
+                    <button class="btn btn-yellow btn-xs"  style="margin-top: 10px;font-size: 20px" onclick="reIndex()">返回首页</button>
+                    <button class="btn btn-yellow btn-xs"  style="margin-top: 10px;font-size: 20px" onclick="ExitLogin()">退出登录</button>
+                </div>
+                <div class="data-div">
+                    <div class="row tableHeader" style="font-size: 17px">
+                        <div class="col-xs-2 ">
+                            名称
+                        </div>
+                        <div class="col-xs-2">
+                            地址
+                        </div>
+                        <div class="col-xs-1">
+                            类型
+                        </div>
+                        <div class="col-xs-1 ">
+                            数量/剩余数量
+                        </div>
+                        <div class="col-xs-1 ">
+                            最大容量
+                        </div>
+                        <div class="col-xs-1 ">
+                            价格
+                        </div>
+                        <div class="col-xs-1 ">
+                            预付金
+                        </div>
+                        <div class="col-xs-1 ">
+                            操作
+                        </div>
+                    </div>
+                    <div class="tablebody" id="houseCollection" >
+
+                    </div>
+
+                </div>
+
+                <!--弹出删除警告窗口-->
+                <div class="modal fade" id="deleteCollection" role="dialog" aria-labelledby="gridSystemModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="CollectionTip">提示</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="container-fluid">
+                                    确定要删除？删除后不可恢复！
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-xs btn-white" data-dismiss="modal">取 消</button>
+                                <button type="button" class="btn btn-xs btn-danger" onclick="DeleteCollectionAction()">删 除</button>
+                            </div>
+                        </div>
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+                <!-- /.modal -->
+
+            </div>
+
+
             <!--委托房屋的订单模块-->
             <div role="tabpanel" class="tab-pane" id="user">
                 <div class="check-div form-inline" align="right">
@@ -376,6 +449,9 @@
                             预付金
                         </div>
                         <div class="col-xs-1">
+                            订单状态
+                        </div>
+                        <div class="col-xs-2">
                             操作
                         </div>
                     </div>
@@ -384,6 +460,8 @@
                         <!--数据填充位置-->
                         <!--</div>-->
                     </div>
+
+
 
                 </div>
 
@@ -477,50 +555,7 @@
                                 <div class="container-fluid" style="text-align:center">
                                     <form class="form-horizontal">
                                         <div  id="BusinessDetails" style="text-align: left">
-                                        <!--<div class="form-group ">
-                                            <div class="col-xs-8 " style="font-size:20px">
-
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="sLink" class="col-xs-3 control-label">真实姓名：</label>
-                                            <div class="col-xs-8 ">
-                                                <input type="" class="form-control input-sm duiqi" id="sLink" placeholder="">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="sOrd" class="col-xs-3 control-label">电子邮箱：</label>
-                                            <div class="col-xs-8">
-                                                <input type="" class="form-control input-sm duiqi" id="sOrd" placeholder="">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="sKnot" class="col-xs-3 control-label">电话：</label>
-                                            <div class="col-xs-8">
-                                                <input type="" class="form-control input-sm duiqi" id="sKnot" placeholder="">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="sKnot" class="col-xs-3 control-label">地区：</label>
-                                            <div class="col-xs-8">
-                                                <input type="" class="form-control input-sm duiqi" id="sKnot" placeholder="">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="sKnot" class="col-xs-3 control-label">权限：</label>
-                                            <div class="col-xs-8">
-                                                <input type="" class="form-control input-sm duiqi" id="sKnot" placeholder="">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="situation" class="col-xs-3 control-label">状态：</label>
-                                            <div class="col-xs-8">
-                                                <label class="control-label" for="anniu">
-                                                    <input type="radio" name="situation" id="normal">正常</label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                <label class="control-label" for="meun">
-                                                    <input type="radio" name="situation" id="forbid"> 禁用</label>
-                                            </div>
-                                        </div>--><!--订单详情数据的填充位置-->
+                                        <!--订单详情数据的填充位置-->
                                         </div>
                                     </form>
                                 </div>
@@ -534,6 +569,28 @@
                     <!-- /.modal-dialog -->
                 </div>
                 <!--/.modal-->
+                <div class="modal fade" id="deleteMyHouseOrder" role="dialog" aria-labelledby="gridSystemModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="de" >提示</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="container-fluid">
+                                    确定要删除该记录？删除后不可恢复！
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-xs btn-white" data-dismiss="modal">取 消</button>
+                                <button type="button" class="btn btn-xs btn-danger" onclick="DeleteAction()">删 除</button>
+                            </div>
+                        </div>
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+                <!-- /.modal -->
                 <!--弹出订单详情窗口-->
                 <!--<div class="modal fade" id="deleteUser" role="dialog" aria-labelledby="gridSystemModalLabel">
                     <div class="modal-dialog" role="document">
@@ -582,13 +639,26 @@
                 <!-- /.modal -->
 
             </div>
+            <!--显示用户信息-->
+            <div role="tabpanel" class="tab-pane" id="displayUser">
+                <div class="check-div form-inline" align="right">
+                    <button class="btn btn-yellow btn-xs"  style="margin-top: 10px;font-size: 20px" onclick="reIndex()">返回首页</button>
+                    <button class="btn btn-yellow btn-xs"  style="margin-top: 10px;font-size: 20px" onclick="ExitLogin()">退出登录</button>
+                </div>
+                <div style="padding: 50px 0;background-color: #fff;width: 420px;margin: 50px auto;">
+                    <form class="form-horizontal" id="displayUserInfrom">
+                        <!--用户信息填充处-->
+                    </form>
+                </div>
+
+            </div>
             <!-- 修改密码模块 -->
             <div role="tabpanel" class="tab-pane" id="chan">
                 <div class="check-div form-inline" align="right">
                     <button class="btn btn-yellow btn-xs"  style="margin-top: 10px;font-size: 20px" onclick="reIndex()">返回首页</button>
                     <button class="btn btn-yellow btn-xs"  style="margin-top: 10px;font-size: 20px" onclick="ExitLogin()">退出登录</button>
                 </div>
-                <div style="padding: 50px 0;margin-top: 50px;background-color: #fff; text-align: right;width: 420px;margin: 50px auto;">
+                <div style="padding: 50px 0;background-color: #fff; text-align: right;width: 420px;margin: 50px auto;">
                     <form class="form-horizontal" id="UserInformation">
                         <div class="form-group">
                             <label for="password" class="col-xs-4 control-label">密码：</label>
@@ -611,7 +681,7 @@
                         <div class="form-group text-right">
                             <div class="col-xs-offset-4 col-xs-5" style="margin-left: 169px;">
                                 <button type="reset" class="btn btn-xs btn-white">取 消</button>
-                                <button type="submit" class="btn btn-xs btn-green" onclick="UserInformation()">保 存</button>
+                                <button type="button" class="btn btn-xs btn-green" onclick="UserInformation()">保 存</button>
                             </div>
                         </div>
                     </form>
@@ -624,7 +694,7 @@
 <script src="managejs/jquery.nouislider.js"></script>
 <script >
     $(document).ready(function() {
-        //请求我的订单的
+        //请求我预定过的订单的
         $.ajax({
             url: "/Business/display",
             dataType: 'json',
@@ -644,7 +714,7 @@
                             "<div class=\"col-lg-2 col-md-2 col-sm-2 col-xs-2  levl3\">\n" +
                             "<span>"+business[num].date+"</span>\n" +
                             "</div>\n" +
-                            "<div class=\"col-lg-2 col-md-2 col-sm-2 col-xs-2\">"+business[num].startTime+"\n" +
+                            "<div class=\"col-lg-1 col-md-1 col-sm-1 col-xs-1\">"+business[num].startTime+"\n" +
                             "</div>\n" +
                             "<div class=\"col-lg-2 col-md-2 col-sm-2 col-xs-2\">"+business[num].endTime+"\n" +
                             "</div>\n" +
@@ -654,9 +724,17 @@
                             "</div>\n" +
                             "<div class=\"col-lg-1 col-md-1 col-sm-1 col-xs-1 levl3\">"+business[num].prepayment+"\n" +
                             "</div>\n" +
-                            "<div class=\"col-lg-1 col-md-1 col-sm-1 col-xs-1\">\n" +
-                            "<button class=\"btn btn-danger btn-xs\" data-toggle=\"modal\" data-target=\"#deleteSource\" onclick='DeleteBusi("+business[num].id+")' >删除</button>\n" +
-                            "</div></div>";
+                            "<div class=\"col-lg-1 col-md-1 col-sm-1 col-xs-1 levl3\">"+business[num].empty+"\n" +
+                            "</div>\n" +
+                            "<div class=\"col-lg-1 col-md-1 col-sm-1 col-xs-1\">\n";
+                        if (business[num].empty == '已完成'){
+                            value +=  "<button class=\"btn btn-danger btn-xs\" data-toggle=\"modal\" data-target=\"#deleteSource\" onclick='DeleteBusi("+business[num].id+")' >删除</button>\n" +
+                                "</div></div>";
+                        }else{
+                            value += "<button class=\"btn btn-danger btn-xs\" data-toggle=\"modal\"  onclick='confirmMyOrderById("+business[num].id+")'>订单完成</button>\n" +
+                                "</div></div>";
+                        }
+
                         $("#collapseAccount").append(value);
                     })
                 }else{
@@ -705,6 +783,8 @@
                 }
             }
         })
+
+        //交易订单
         $.ajax({
             url: "/Business/MyHouseOrder",
             dataType: 'json',
@@ -723,10 +803,20 @@
                                             "<div class=\"col-xs-2\">"+housenamelist[num].empty+"</div>\n" +
                                             "<div class=\"col-xs-1\">"+list[num].type+"</div>\n" +
                                             "<div class=\"col-xs-1\">"+list[num].prepayment+"</div>\n" +
-                                            "<div class=\"col-xs-1\">\n" +
-                                            "<button class=\"btn btn-danger btn-xs\" data-toggle=\"modal\" data-target=\"#reviseUser\" onclick='MyOrderId("+list[num].id+")'>订单详情</button>\n" +
-                                            "</div></div>";
+                                            "<div class=\"col-xs-1\">"+list[num].empty+"</div>\n" +
+                                            "<div class=\"col-xs-2\">\n" +
+                                            "<button class=\"btn btn-danger btn-xs\" data-toggle=\"modal\" data-target=\"#reviseUser\" onclick='MyOrderId("+list[num].id+")'>订单详情</button>\n" ;
+                        //alert(list[num].empty);
+                        if (list[num].empty == '已完成'){
+                            MyHouseOrderValue +=  "<button class=\"btn btn-danger btn-xs\" data-toggle=\"modal\" data-target=\"#deleteMyHouseOrder\" onclick='DeleteBusi("+list[num].id+")' >删除</button>\n" +
+                                "</div></div>";
+                        }else{
+                            MyHouseOrderValue += "<button class=\"btn btn-danger btn-xs\" data-toggle=\"modal\"  onclick='confirmMyOrderById("+list[num].id+")'>订单完成</button>\n" +
+                                "</div></div>";
+                        }
+
                         $("#MyHouseOrder").append(MyHouseOrderValue);
+
                     })
                 } else {
                     alert("无消息订单");
@@ -734,8 +824,89 @@
             }
         })
 
+
+        //我的收藏
+        $.ajax({
+            url: "/house/displayCollection",
+            dataType: 'json',
+            type: "post",
+            data: "",
+            async: false,
+            success: function (msg) {
+                if (msg.status == 1){
+
+                    $("#houseCollection").empty();
+                    var house = eval(msg.houselist);
+                    var collectionlist = eval(msg.CollectionList);
+                    $.each(house, function (num) {
+
+                        var local = house[num].city+""+house[num].area+""+house[num].address;
+                        var collectionmsg = "";
+                        collectionmsg += "<div class=\"row\">\n" +
+                            "<div class=\"col-xs-2 \">"+house[num].empty+"</div>\n" +
+                            "<div class=\"col-xs-2 \">"+local+"</div>\n" +
+                            "<div class=\"col-xs-1\">"+house[num].officetype+"</div>\n" +
+                            "<div class=\"col-xs-1 \">"+house[num].officenumber+"/"+house[num].remainnumber+"</div>\n" +
+                            "<div class=\"col-xs-1 \">"+house[num].personNumber+"</div>\n" +
+                            "<div class=\"col-xs-1 \">"+house[num].price+"</div>\n" +
+                            "<div class=\"col-xs-1 \">"+house[num].prepayment+"</div>\n" +
+                            "<div class=\"col-xs-1\">\n" +
+                            "<button class=\"btn btn-danger btn-xs\" data-toggle=\"modal\" data-target=\"#deleteCollection\" onclick='DeleteCollection("+collectionlist[num].id+")'>删除</button>\n" +
+                            "</div></div>";
+                        $("#houseCollection").append(collectionmsg);
+                    })
+
+                } else{
+                    alert("未登记房源信息！");
+                }
+            }
+        })
+
+        //用户信息
+        $.ajax({
+            url: "/User/DisplayUser",
+            dataType: 'json',
+            type: "post",
+            data: "",
+            async: false,
+            success: function (msg) {
+                if (msg.status == 1){
+
+                    $("#displayUserInfrom").empty();
+                    var user = eval(msg.user);
+
+                    var displayUserInfrom = "<div class=\"form-group\">\n" +
+                        "<label class=\"col-xs-4 control-label\" style=\"font-size: 20px\">账号:</label>\n" +
+                        "  <P style=\"margin-top: 9px;font-size: 20px\">"+user.account+"</P>\n" +
+                        "</div>\n" +
+                        "<div class=\"form-group\">\n" +
+                        " <label class=\"col-xs-4 control-label\" style=\"font-size: 20px\">密码:</label>\n" +
+                        " <P style=\"margin-top: 9px;font-size: 20px\">"+user.password+"</P>\n" +
+                        "</div>\n" +
+                        "<div class=\"form-group\">\n" +
+                        " <label class=\"col-xs-4 control-label\" style=\"font-size: 20px\">姓名:</label>\n" +
+                        " <P style=\"margin-top: 9px;font-size: 20px\">"+user.name+"</P>\n" +
+                        "</div>\n" +
+                        "<div class=\"form-group\">\n" +
+                        " <label class=\"col-xs-4 control-label\" style=\"font-size: 20px\">电话:</label>\n" +
+                        " <P style=\"margin-top: 9px;font-size: 20px\">"+user.phonenumber+"</P>\n" +
+                        "</div>\n" +
+                        "<div class=\"form-group\">\n" +
+                        " <label class=\"col-xs-4 control-label\" style=\"font-size: 20px\">邮箱:</label>\n" +
+                        " <P style=\"margin-top: 9px;font-size: 20px\">"+user.idcard+"</P>\n" +
+                        "</div>";
+
+                    $("#displayUserInfrom").append(displayUserInfrom);
+
+                } else{
+                    alert("无用户信息！");
+                }
+            }
+        })
+
     })
 
+    //订单详情
     function MyOrderId(id){
         $.ajax({
             url: "/Business/BusinessDetails",
@@ -757,7 +928,7 @@
                         "电话："+user.phonenumber+"</div></div>\n" +
                         "<div class=\"form-group \">\n" +
                         "<div class=\"col-xs-8\" style=\"font-size:20px\">\n" +
-                        "邮箱："+user.empty+"</div></div>\n" +
+                        "邮箱："+user.idcard+"</div></div>\n" +
                         "<div class=\"form-group\">\n" +
                         "<div class=\"col-xs-8 \" style=\"font-size:20px\">\n" +
                         "订单日期："+business.date+"</div> </div>\n" +
@@ -786,8 +957,29 @@
                         "<div class=\"col-xs-8 \" style=\"font-size:20px\">\n" +
                         "预付定金："+business.prepayment+"</div></div>";
                         $("#BusinessDetails").append(value);
-                }else{
-                    alert("无订单！")
+                }else {
+                      alert("无订单！");
+                }
+            }
+        })
+    }
+
+    //修改订单状态
+    function confirmMyOrderById(id){
+        $.ajax({
+            url: "/Business/confirmMyOrderById",
+            dataType: 'json',
+            type: "post",
+            data: {"businessid": id},
+            async: false,
+            success: function (msg) {
+                if(msg.status == 1){
+                    swal({
+                        title: '确认成功！',
+                        type: 'success'
+                    }, function () {
+                        location.reload();
+                    });
                 }
             }
         })
@@ -802,8 +994,8 @@
     function SaveInformation() {
         var price = document.getElementById("price").value;
         var prepayment = document.getElementById("prepayment").value;
-        alert(price);
-        alert(prepayment);
+        //alert(price);
+        //alert(prepayment);
         $.ajax({
             url: "/house/SaveInformation",
             dataType: 'json',
@@ -849,7 +1041,7 @@
     }
 
     function DeleteAction(){
-        alert(DeleteBusiness);
+        //alert(DeleteBusiness);
         $.ajax({
             url: "/Business/delete",
             dataType: 'json',
@@ -888,6 +1080,28 @@
             }
         })
     }
+
+    var DeleteCollectionID = -1;
+    function DeleteCollection(id){
+        DeleteCollectionID = id;
+    }
+
+    function DeleteCollectionAction(){
+        $.ajax({
+            url: "/house/DeleteCollection",
+            dataType: 'json',
+            type: "post",
+            data: {"collectionid":DeleteCollectionID},
+            async: false,
+            success: function (msg) {
+                if (msg.status == 1){
+                    window.location.href = "";
+                } else{
+                    swal("删除有误!");
+                }
+            }
+        })
+    }
 </script>
 <script src="js/sweetalert-dev.js"></script>
 <script>
@@ -902,7 +1116,13 @@
             async: false,
             success: function (msg) {
                 if (msg.status == 1){
-                    alert("修改成功！");
+                    //alert("修改成功！");
+                    swal({
+                        title: '修改成功！',
+                        type: 'success'
+                    }, function () {
+                        location.reload();
+                    })
                 }
             }
         })

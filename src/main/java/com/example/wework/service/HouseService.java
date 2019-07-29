@@ -23,4 +23,8 @@ public interface HouseService {
 
     int updateHouseStatus(int id);
 
+    int updateHouseRemainnumber(int id , int remainnumber);
+
+    int updateRentornot(int id);
+
 }

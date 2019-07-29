@@ -24,6 +24,9 @@ public interface BusinessMapper {
 
     Business selectOrderByMore(@Param("customerId") int customerId,@Param("date") String date,@Param("houseid") int houseid);
 
+    //订单是否支付定金的状态
     int setStatus(@Param("businessid") int id);
+    //订单是否完成的状态
+    int confirmMyOrderId(int id);
 
 }

@@ -50,4 +50,9 @@ public class BusinessServiceIMPL implements BusinessService {
     public int DeleteBusinessByPrimaryKey(int id) {
         return businessMapper.deleteByPrimaryKey(id);
     }
+
+    @Override
+    public int confirmMyOrderId(int id) {
+        return businessMapper.confirmMyOrderId(id);
+    }
 }

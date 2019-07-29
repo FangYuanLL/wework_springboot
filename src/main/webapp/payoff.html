@@ -31,14 +31,14 @@
                     <thead>
                     <tr>
                         <th class="s-title" style="font-size: 20px">办公大楼名称<hr/></th>
-                        <th class="s-price" style="font-size: 20px">单价(￥)<hr/></th>
+                        <th class="s-title" style="font-size: 20px">单价<hr/></th>
                         <th class="s-amount" style="font-size: 20px">数量<hr/></th>
                         <th class="s-amount" style="font-size: 20px">类型<hr/></th>
                         <th class="s-title" style="font-size: 20px">预定时间<hr/></th>
                         <th class="s-title" style="font-size: 20px">开始时间<hr/></th>
                         <th class="s-title" style="font-size: 20px">结束时间<hr/></th>
-                        <th class="s-total" style="font-size: 20px">价格(￥)<hr/></th>
-                        <th class="s-total" style="font-size: 20px">定金(￥)<hr/></th>
+                        <th class="s-title" style="font-size: 20px">价格<hr/></th>
+                        <th class="s-title" style="font-size: 20px">定金<hr/></th>
                     </tr>
                     </thead>
 
@@ -109,11 +109,11 @@
 
                     var value = "<tr class=\"item\" data-pointRate=\"0\">\n" +
                         "       <td class=\"s-title\">\n" +
-                        "         <a href=\"#\" target=\"_blank\" style=\"font-size: 20px\">"+house.empty+"</span></a>\n" +
+                        "         <a href=\"#\"  style=\"font-size: 20px\">"+house.empty+"</span></a>\n" +
                         "       </td>\n" +
                         "       <td class=\"s-price\">\n" +
                         "        <span class='price '>\n" +
-                        "          <em class=\"style-normal-small-black J_ItemPrice\" style=\"font-size: 20px\">"+house.price+"</em>\n" +
+                        "          <em class=\"style-normal-small-black J_ItemPrice\" style=\"font-size: 20px\">"+house.price+"￥</em>\n" +
                         "        </span>\n" +
                         "       </td>\n" +
                         "       <td class=\"s-amount\">\n" +
@@ -138,17 +138,17 @@
                         "         </span>\n" +
                         "       </td>\n" +
                         "       <td class=\"s-agio\">\n" +
-                        "           <div class=\"J_Promotion promotion\" data-point-url=\"\" style=\"font-size: 20px\">"+house.price*business.number*day+"</div>\n" +
+                        "           <div class=\"J_Promotion promotion\" data-point-url=\"\" style=\"font-size: 20px\">"+house.price+"￥</div>\n" +
                         "       </td>\n" +
                         "       <td class=\"s-agio\">\n" +
-                        "           <div class=\"J_Promotion promotion\" data-point-url=\"\" style=\"font-size: 20px\">"+house.prepayment*business.number+"</div>\n" +
+                        "           <div class=\"J_Promotion promotion\" data-point-url=\"\" style=\"font-size: 20px\">"+house.prepayment+"￥</div>\n" +
                         "       </td>\n" +
                         "    </tr>\n" +
                         "    \n" +
                         "    <tr class=\"shop-total blue-line\">\n" +
                         "     <td colspan=\"10\" style=\"font-size:20px\">合计：\n" +
                         "       <span class='price g_price '>\n" +
-                        "        <span>&yen;</span><em class=\"style-middle-bold-red J_ShopTotal\" style=\"font-size:20px\" >"+house.prepayment*business.number+"</em>\n" +
+                        "        <span>&yen;</span><em class=\"style-middle-bold-red J_ShopTotal\" style=\"font-size:20px\" >"+house.price*business.number*day+"</em>\n" +
                         "      </span>\n" +
                         "       </td>\n" +
                         "    </tr>";
@@ -159,7 +159,7 @@
 
                     var userValue = "<div class=\"bd\" style='text-align:left'>\n" +
                         "        <div class=\"point-in\" style='text-align:left'>    \n" +
-                        "          <em  style=\"font-size: 20px\">实付款：</em></span><em   id=\"J_ActualFee\" style=\"font-size:20px\" >"+house.prepayment+"</em>\n" +
+                        "          <em  style=\"font-size: 20px\">付款：</em></span><em   id=\"J_ActualFee\" style=\"font-size:20px\" >"+house.prepayment+"</em>\n" +
                         "          </span>\n" +
                         /*"        </div>\n" +*/
                         "          <ul style='text-align:left'>\n" +

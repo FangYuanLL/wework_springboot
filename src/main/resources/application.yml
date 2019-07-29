@@ -37,6 +37,22 @@ spring:
     view:
       prefix: /WEB-INF/jsp/
       suffix: .jsp
+  mail:
+      host: smtp.qq.com  #qq邮箱服务器
+      username: 1051788723@qq.com  #qq账号
+      password: tklpuyjqpppgbeij   #授权码
+      protocol: smtp
+      test-connection: true
+      properties:
+        mail:
+          smtp:
+            auth: true
+            starttls:
+              enable: true
+              required: true
+            socketFactory:
+              class: javax.net.ssl.SSLSocketFactory #SSL证书Socket工厂
+              port: 465            #使用SMTPS协议465端口
 
 
 

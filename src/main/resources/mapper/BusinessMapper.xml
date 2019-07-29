@@ -35,6 +35,7 @@
     and orderstatus = 1
   </select>
 
+
   <select id="selectOrderByMore" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
@@ -49,11 +50,18 @@
     <include refid="Base_Column_List" />
     from business
     where landlord_id = #{landlordid,jdbcType=INTEGER}
+    and orderstatus = 1
   </select>
 
   <update id="setStatus" parameterType="java.lang.Integer" >
      update business
      set orderstatus = 1
+     where id = #{businessid,jdbcType=INTEGER}
+  </update>
+
+  <update id="confirmMyOrderId" parameterType="java.lang.Integer" >
+     update business
+     set empty = '已完成'
      where id = #{businessid,jdbcType=INTEGER}
   </update>
 

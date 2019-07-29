@@ -18,4 +18,6 @@ public interface BusinessService {
     int setStatus(int id);
 
     int DeleteBusinessByPrimaryKey(int id);
+
+    int confirmMyOrderId(int id);
 }

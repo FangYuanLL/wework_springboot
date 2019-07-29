@@ -54,4 +54,14 @@ public class HouseServiceIMPL implements HouseService {
     public int updateHouseStatus(int id) {
         return house.updateHouseStatus(id);
     }
+
+    @Override
+    public int updateHouseRemainnumber(int id, int remainnumber) {
+        return house.updateHouseRemainnumber(id,remainnumber);
+    }
+
+    @Override
+    public int updateRentornot(int id) {
+        return house.updateRentornot(id);
+    }
 }

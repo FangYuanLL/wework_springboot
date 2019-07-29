@@ -24,6 +24,10 @@ public interface house_InformationMapper {
     List<house_Information> getUnCheckHouse( String status);
 
     int updateHouseStatus(int id);
+
+    int updateHouseRemainnumber(@Param("id") int id,@Param("remainnumber") int remainnumber);
+
+    int updateRentornot(int id);//跟新删除的状态位
     /*end*/
 
     int updateByPrimaryKeySelective(house_Information record);

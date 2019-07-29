@@ -24,9 +24,10 @@
 
     <link rel="stylesheet" type="text/css" href="asset/css/fix-style.css">
     <link rel="stylesheet" type="text/css" href="asset/css/main.css">
+    <link rel="stylesheet" href="css/sweetalert.css" />
 
 
-    <script src="asset/js/jquery-3.3.1.min.js"></script>
+        <script src="asset/js/jquery-3.3.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/modernizr-2.8.3.min.js"></script>
     <script src="js/owl.carousel.min.js"></script>
@@ -82,7 +83,7 @@
                 <div class="main-menu">
                     <nav>
                         <ul id="nav">
-                            <li class="active"><a href="#">主页</a></li>
+                            <li class="active"><a href="index.html">主页</a></li>
                             <!--<li><a href="#">搜索房源</a>
                                 <ul class="sub-menu">
                                     <li><a href="#">北京</a></li>
@@ -126,7 +127,7 @@
                                     <div class="e-slide" >
                                         <div class="magie-bd">
                                             <div class=" v2" id="ImageSlide" >
-                                                <div  id="ImageSlideKV" style="width:580px;height:300px;overflow:hidden;margin:auto;">
+                                                <div  id="ImageSlideKV" style="width:580px;height:380px;overflow:hidden;margin:auto;">
                                                     <!--<img src="images/1.jpg" alt="">
                                                     <img src="images/2.jpg" alt="">-->
                                                 </div>
@@ -253,6 +254,7 @@
 <script src="asset/js/main.js"></script>
 <script src="asset/js/owl.carousel.min.js"></script>
 <script src="asset/js/slick.min.js"></script>
+<script src="js/sweetalert-dev.js"></script>
 <script>
     var AddressName = "";//用于存储地址的
     $(document).ready(function() {
@@ -268,7 +270,8 @@
                     var HouseData = eval(msg.houseInformation);
                     var ImageData = eval(msg.ImageList);
                     var valueImage = "";
-                    var valueInformation = "";
+                    var valueInformation1 = "";
+
                     var introduceText = "";
 
                     $.each(ImageData, function (num) {
@@ -281,7 +284,7 @@
                     $("#PictureNumber").append(PictureValue);
 
 
-                    valueInformation = "<div class='product-info'>" +
+                    valueInformation1 = "<div class='product-info'>" +
                         "<div class='color-group'></div>" +
                         "<div class='element-list element-list-left'></div>" +
                         "<div class='element-list element-list-middle'>" +
@@ -293,19 +296,27 @@
                         "<p style='font-size: 20px'>&emsp;&emsp;地区:"+HouseData.area+"</p>" +
                         "<p style='font-size: 20px'>具体地址:"+HouseData.address+"</p>" +
                         "<p style='font-size: 20px'>办公类型:"+HouseData.officetype+"</p>" +
-                        "<p style='font-size: 20px'>最大人数:"+HouseData.personNumber+"人</p>" +
-                        "<p style='font-size: 20px'>&emsp;&emsp;价格:"+HouseData.price+"￥/间</p>" +
-                        "<p style='font-size: 20px'>预付定金:"+HouseData.prepayment+"￥</p>" +
-                        "<p style='font-size: 20px'>&emsp;&emsp;余量:"+HouseData.remainnumber+"</p>" +
-                        "<p style='font-size: 20px'>预定数量&nbsp;:&nbsp;<input type='button' id='add' onclick='add()' value='+' style='width: 20px;height: 40px'>" +
+                        "<p style='font-size: 20px'>最大人数:"+HouseData.personNumber+"人</p>" ;
+
+                        if(HouseData.officetype == '整租'){
+                            valueInformation1 +=  "<p style='font-size: 20px'>&emsp;&emsp;价格:"+HouseData.price+"￥/间</p>"+
+                                "<p style='font-size: 20px'>预付定金:"+HouseData.prepayment+"￥</p>" +
+                                "<p style='font-size: 20px'>&emsp;&emsp;余量:"+HouseData.remainnumber+"</p>" ;
+                        }else{
+                            valueInformation1 +=  "<p style='font-size: 20px'>&emsp;&emsp;价格:"+HouseData.price+"￥/工位</p>"+
+                                "<p style='font-size: 20px'>预付定金:"+HouseData.prepayment+"￥</p>" +
+                                "<p style='font-size: 20px'>工位余量:"+HouseData.remainnumber+"</p>" ;
+                        }
+
+                        valueInformation1 += "<p style='font-size: 20px'>预定数量&nbsp;:&nbsp;<input type='button' id='add' onclick='add()' value='+' style='width: 20px;height: 40px'>" +
                         "<input type='text' id='purchaseNumber' align='center' value='1'  style='width: 60px;height: 40px' disabled='true'><input  type='button' id='decrease' onclick='decrease()' value='-' style='width: 20px;height: 40px'></p>"+
                         "<p style='font-size: 20px'>预定时间:<input type='date'  id='startTime'/><br> "+
                         "<p style='font-size: 20px'>结束时间:<input type='date'  id='endTime'/><br><br> "+
-                        "<input type='button' value='收藏' onclick='collect("+HouseData.id+")' style='display:inline;margin-right:30px;width: 100px;height: 30px'>" +
+                        "<input type='button' value='收藏' onclick='collection("+HouseData.id+")' style='display:inline;margin-right:30px;width: 100px;height: 30px'>" +
                         "<input type='button' value='预定' onclick='order("+HouseData.id+")' style='display:inline;width: 100px;height: 30px'>"+
                         "</div></div></div></div>";
                     /*date是年月日，而datetime-local是包括年月日时分*/
-                    $("#descriptor").append(valueInformation);
+                    $("#descriptor").append(valueInformation1);
 
                     if (HouseData.officetype == "整租"){
                         document.getElementById("add").style.display="none";
@@ -335,8 +346,10 @@
             data :{"houseid":id},
             async : false,
             success : function(msg) {
-                if (msg.status==-1){
-                    alert("收藏操作有误！");
+                if (msg.status==1){
+                    swal("收藏成功!");
+                }else{
+                    swal("收藏失败!");
                 }
             }
         })
@@ -353,10 +366,11 @@
         var endDate = new Date(Date.parse(endTime));
 
         var now = new Date();
-        var nowTime = now.toLocaleString().replace(/[年月]/g, '-').replace(/[日上下午]/g, '');
+        var nowTime = now.toLocaleString('chinese', { hour12: false });
+        //alert(nowTime);
 
         if (((startDate>now) && (endDate>startDate)) == true){
-            alert("123");
+            //alert("123");
             $.ajax({
                 url : "/house/Order",
                 dataType : 'json',

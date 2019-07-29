@@ -17,4 +17,7 @@ public interface userService {
         List<user_Customer> selectAll();
 
         int deleteByID(int id);
+
+        int updateEmpty(int id);
+
 }

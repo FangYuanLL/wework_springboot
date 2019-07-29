@@ -15,6 +15,22 @@
     from collectionhouse
     where id = #{id,jdbcType=INTEGER}
   </select>
+
+
+  <select id="selectByHouseID" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from collectionhouse
+    where houseID = #{houseID,jdbcType=INTEGER}
+  </select>
+
+  <select id="displayCollection" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from collectionhouse
+    where user_customerID = #{userCustomerid,jdbcType=INTEGER}
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from collectionhouse
     where id = #{id,jdbcType=INTEGER}
